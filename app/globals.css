@@ -24,3 +24,16 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Loading skeleton shimmer effect */
+@keyframes shimmer {
+  to {
+    background-position: 200px 0;
+  }
+}
+
+.animate-shimmer {
+  background-image: linear-gradient(to right, #eee 10%, #ddd 20%, #eee 30%);
+  background-size: 800px 100px;
+  animation: shimmer 1.5s infinite forwards;
+}
