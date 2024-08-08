@@ -14,9 +14,9 @@ const config: Config = {
         dark: '#AE5609',
       },
       secondary: {
-        light: '#264569',
-        base: '#132335',
-        dark: '#050A0F'
+        light: '#5D6267',
+        base: '#1A1D1F',
+        dark: '#111315'
       }
     },
     extend: {},
