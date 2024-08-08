@@ -25,7 +25,7 @@ body {
   }
 }
 
-/* Loading skeleton shimmer effect */
+/* Generic Loading Skeleton */
 @keyframes shimmer {
   to {
     background-position: 200px 0;
@@ -36,4 +36,21 @@ body {
   background-image: linear-gradient(to right, #eee 10%, #ddd 20%, #eee 30%);
   background-size: 800px 100px;
   animation: shimmer 1.5s infinite forwards;
+}
+
+/* Logo Animation */
+@keyframes flip {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(-1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.animate-flip {
+  animation: flip 2s infinite;
 }
