@@ -26,11 +26,11 @@ body {
 }
 
 .form-input-light {
-  @apply max-w-md w-full border border-4 rounded-lg bg-transparent py-2 px-4 placeholder:text-white placeholder:opacity-60
+  @apply max-w-md w-full border border-4 rounded-lg bg-transparent py-2 px-4 placeholder:text-white placeholder:opacity-60 text-lg
 }
 
 .btn-light {
-  @apply border border-4 border-secondary-base bg-secondary-base rounded-lg px-6 py-2 px-4 w-full hover:bg-secondary-dark
+  @apply border border-4 border-secondary-base bg-secondary-base rounded-lg px-6 py-2 px-4 w-full hover:bg-secondary-dark text-lg
 }
 
 /* Generic Loading Skeleton */
