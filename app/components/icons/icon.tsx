@@ -1,11 +1,14 @@
 import React from "react"
 
 const IconContainer = (props: {children: React.ReactNode}) => (
-    <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-secondary-base cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 70 70">
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 70 70"
+        >
             {props.children}
         </svg>
-    </a>
 )
 
 const FacebookIcon = () => (
