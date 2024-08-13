@@ -1,18 +1,17 @@
 import Image from "next/image"
 
 import { Form } from "./components/form/form";
-import { FacebookIcon, InstagramIcon, XIcon } from "./components/icons/icon";
+import { FacebookIcon, InstagramIcon, XIcon, CameraIcon } from "./components/icons/icon";
 
 export default function Home() {
   return (
     <main className="h-screen min-h-screen w-full bg-primary-base lg:grid lg:grid-col grid-cols-home">
       <div className="relative hidden lg:block">
-        <p className="relative z-10">
-          Photo by{' '}
-          <a href="https://unsplash.com/@grebenyev?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-            Vlad Grebenyev
-          </a>
-        </p>
+        <div className="relative z-10 m-2 px-4 py-2 flex flex-row gap-2 items-center opacity-40">
+          <CameraIcon />
+          <p className="text-xs">Photo by <a href="https://unsplash.com/@grebenyev?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Vlad Grebenyev</a></p>
+        </div>
+        
         <Image
           src="/images/lambo-flames.jpg"
           alt="A green Lamborghini"
