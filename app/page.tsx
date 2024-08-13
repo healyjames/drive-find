@@ -5,27 +5,7 @@ import { FacebookIcon, InstagramIcon, XIcon, CameraIcon } from "./components/ico
 
 export default function Home() {
   return (
-    <main className="h-screen min-h-screen w-full bg-primary-base lg:grid lg:grid-col grid-cols-home">
-      <div className="relative hidden lg:block">
-        <div className="relative z-10 m-2 px-4 py-2 flex flex-row gap-2 items-center opacity-40">
-          <CameraIcon
-            viewBox="0 0 512 512"
-            width="16"
-            height="16"
-          />
-          <p className="text-xs">Photo by <a href="https://unsplash.com/@grebenyev?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Vlad Grebenyev</a></p>
-        </div>
-        
-        <Image
-          src="/images/lambo-flames.jpg"
-          alt="A green Lamborghini"
-          layout="fill" // This makes sure the image covers the container
-          objectFit="cover" // Ensures the image covers the container without distortion
-          className="absolute inset-0 z-0" // Positions the image in the background
-        />
-      </div>
-
-
+    <main className="h-screen min-h-screen w-full bg-primary-base">
       <div className="h-full grid grid-col grid-rows-3 justify-items-center p-4">
         <Image
           src="/logo/primary.svg"

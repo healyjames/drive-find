@@ -21,9 +21,6 @@ const config: Config = {
         }
       },
     },
-    gridTemplateColumns: {
-      'home': '30% 70%',
-    }
   },
   plugins: [],
 }
