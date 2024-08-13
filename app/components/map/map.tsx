@@ -8,9 +8,22 @@ import { LogoAnimation } from "../loading/logo-animation"
 
 const libraries = ['places', 'drawing', 'geometry']
 
-const defaultMapContainerStyle = {
-    width: '100%',
-    height: '100vh'
+const mapDefaults = {
+    coordinates: {
+        lat: 53.18136494812854,
+        lng: -2.6165447846574437
+    },
+    options: {
+        zoomControl: true,
+        tilt: 0,
+        gestureHandling: 'auto',
+        mapTypeId: 'roadmap'
+    },
+    style: {
+        width: '100%',
+        height: '100vh'
+    },
+    zoom: 14
 }
 
 export const MapProvider = ({ children }: { children: React.ReactNode }) => {
@@ -33,7 +46,12 @@ export const Map = () => {
     return (
         <React.Fragment>
             <MapProvider>
-                <GoogleMap mapContainerStyle={defaultMapContainerStyle} />
+                <GoogleMap
+                    mapContainerStyle={mapDefaults.style}
+                    center={mapDefaults.coordinates}
+                    zoom={mapDefaults.zoom}
+                    options={mapDefaults.options}
+                />
             </MapProvider>
         </React.Fragment>
     )
