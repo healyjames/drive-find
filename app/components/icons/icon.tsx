@@ -1,11 +1,26 @@
 import React from "react"
 
-const IconContainer = (props: {children: React.ReactNode}) => (
+interface IconProps {
+    className?: string,
+    strokeWidth?: string,
+    stroke?: string,
+    fill?: string,
+    viewBox?: string,
+    width?: string,
+    height?: string,
+    children?: React.ReactNode
+}
+
+const IconContainer = (props: IconProps) => (
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 70 70"
+            fill={props.fill}
+            viewBox={props.viewBox || "0 0 70 70"}
+            strokeWidth={props.strokeWidth}
+            stroke={props.stroke}
+            className={props.className}
+            width={props.width || "24"}
+            height={props.height || "24"}
         >
             {props.children}
         </svg>
