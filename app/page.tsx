@@ -1,7 +1,7 @@
 import Image from "next/image"
 
 import { Form } from "./components/form/form";
-import { FacebookIcon, InstagramIcon, XIcon, CameraIcon } from "./components/icons/icon";
+import { FacebookIcon, InstagramIcon, XIcon } from "./components/icons/icon";
 
 export default function Home() {
   return (
