@@ -23,10 +23,12 @@ const mapDefaults = {
         lng: -2.6165447846574437
     },
     options: {
-        zoomControl: true,
+        zoomControl: false,
         tilt: 0,
         gestureHandling: 'auto',
         mapTypeId: 'roadmap',
+        disableDefaultUI: true,
+        keyboardShortcuts: false,
         styles: mapStyle
     },
     style: {
