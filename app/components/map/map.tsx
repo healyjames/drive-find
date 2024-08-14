@@ -5,8 +5,17 @@ import React from "react"
 import { GoogleMap, Libraries, useJsApiLoader } from '@react-google-maps/api'
 
 import { LogoAnimation } from "../loading/logo-animation"
+import googleMapWizardStyling from './wizard.json'
 
 const libraries = ['places', 'drawing', 'geometry']
+
+interface MapTypeStyle {
+    elementType?: string | null;
+    featureType?: string | null;
+    stylers: object[];
+}
+
+const mapStyle: MapTypeStyle[] = googleMapWizardStyling as MapTypeStyle[]
 
 const mapDefaults = {
     coordinates: {
@@ -17,7 +26,8 @@ const mapDefaults = {
         zoomControl: true,
         tilt: 0,
         gestureHandling: 'auto',
-        mapTypeId: 'roadmap'
+        mapTypeId: 'roadmap',
+        styles: mapStyle
     },
     style: {
         width: '100%',
