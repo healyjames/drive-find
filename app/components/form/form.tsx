@@ -26,6 +26,7 @@ export const AutocompleteProvider = ({ children }: { children: React.ReactNode }
 
 export const Form = (props: FormProps) => {
 
+    const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
     const [input, setInput] = useState('')
 
     useEffect(() => {
