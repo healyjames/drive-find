@@ -2,12 +2,15 @@
 
 import React, { useState, useEffect, useRef} from "react"
 
+import { Autocomplete } from '@react-google-maps/api'
+
 interface FormProps {
     className: string
 }
 
 export const Form = (props: FormProps) => {
 
+    const [autocomplete, setAutocomplete] = useState(null)
     const [input, setInput] = useState('')
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
