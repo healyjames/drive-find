@@ -8,6 +8,8 @@ interface FormProps {
     className: string
 }
 
+const libraries = ['places']
+
 export const Form = (props: FormProps) => {
 
     const [input, setInput] = useState('')
