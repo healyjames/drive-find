@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect} from "react"
+import React, { useState, useEffect, useCallback, ChangeEvent} from "react"
 
 import { Autocomplete, useJsApiLoader, Libraries } from '@react-google-maps/api'
 
@@ -43,6 +43,10 @@ export const Form = (props: FormProps) => {
         }
     }
 
+    const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+        setInput(e.target.value)
+    }, [])
+
     useEffect(() => {
         console.log(input)
     }, [input])
@@ -60,6 +64,7 @@ export const Form = (props: FormProps) => {
                                 className="form-input-light"
                                 placeholder="Somewhere..."
                                 value={input}
+                                onChange={handleInputChange}
                                 required
                             />
                         </Autocomplete>
