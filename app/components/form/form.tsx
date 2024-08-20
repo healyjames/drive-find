@@ -10,6 +10,20 @@ interface FormProps {
 
 const libraries = ['places']
 
+export const AutocompleteProvider = ({ children }: { children: React.ReactNode }) => {
+
+    const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API as string,
+        libraries: libraries as Libraries
+    })
+
+    if (loadError) return <p>error</p>
+
+    if (!scriptLoaded) return <div className="w-screen h-screen flex justify-center items-center"><div>Loading</div></div>
+
+    return children
+}
+
 export const Form = (props: FormProps) => {
 
     const [input, setInput] = useState('')
