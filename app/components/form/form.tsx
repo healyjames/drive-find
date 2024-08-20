@@ -4,6 +4,8 @@ import React, { useState, useEffect, useCallback, ChangeEvent} from "react"
 
 import { Autocomplete, useJsApiLoader, Libraries } from '@react-google-maps/api'
 
+import { LogoAnimation } from "../loading/logo-animation"
+
 interface FormProps {
     className: string
 }
@@ -19,7 +21,7 @@ export const AutocompleteProvider = ({ children }: { children: React.ReactNode }
 
     if (loadError) return <p>error</p>
 
-    if (!scriptLoaded) return <div className="w-screen h-screen flex justify-center items-center"><div>Loading</div></div>
+    if (!scriptLoaded) return <div className="flex justify-center items-center"><div><LogoAnimation /></div></div>
 
     return children
 }
