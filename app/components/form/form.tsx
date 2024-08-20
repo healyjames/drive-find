@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useState, useEffect, useCallback, ChangeEvent} from "react"
+import React, { useState, useCallback, ChangeEvent} from "react"
 
-import { Autocomplete, useJsApiLoader, Libraries } from '@react-google-maps/api'
+import { Autocomplete } from '@react-google-maps/api'
 
+import { GoogleApiProvider as AutocompleteProvider } from "../utils/google"
 import { LogoAnimation } from "../loading/logo-animation"
 
 interface FormProps {
@@ -12,19 +13,8 @@ interface FormProps {
 
 const libraries = ['places']
 
-export const AutocompleteProvider = ({ children }: { children: React.ReactNode }) => {
-
-    const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API as string,
-        libraries: libraries as Libraries
-    })
-
-    if (loadError) return <p>error</p>
-
-    if (!scriptLoaded) return <div className="flex justify-center items-center"><div><LogoAnimation /></div></div>
-
-    return children
-}
+const error = <p>error</p>
+const loading = <div className="flex justify-center items-center"><div><LogoAnimation /></div></div>
 
 export const Form = (props: FormProps) => {
 
@@ -51,7 +41,7 @@ export const Form = (props: FormProps) => {
 
     return (
         <React.Fragment>
-            <AutocompleteProvider>
+            <AutocompleteProvider error={error} loading={loading}>
                 <form action="/results" method="POST" className={`${props.className} max-w-md w-full px-4`}>
                     <div className="mb-2">
                         <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your location</label>
