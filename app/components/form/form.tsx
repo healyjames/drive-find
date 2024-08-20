@@ -47,10 +47,6 @@ export const Form = (props: FormProps) => {
         setInput(e.target.value)
     }, [])
 
-    useEffect(() => {
-        console.log(input)
-    }, [input])
-
     return (
         <React.Fragment>
             <AutocompleteProvider>
