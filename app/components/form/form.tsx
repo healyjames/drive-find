@@ -33,6 +33,16 @@ export const Form = (props: FormProps) => {
         setAutocomplete(autoC)
     }
 
+    const onPlaceChanged = (): void => {
+        if (autocomplete !== null) {
+            const place = autocomplete.getPlace()
+            console.log(place);
+            setInput(place.formatted_address || "")
+        } else {
+            console.error('Autocomplete is not loaded yet :/')
+        }
+    }
+
     useEffect(() => {
         console.log(input)
     }, [input])
