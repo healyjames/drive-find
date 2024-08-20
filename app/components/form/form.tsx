@@ -10,7 +10,7 @@ interface FormProps {
 
 export const Form = (props: FormProps) => {
 
-    const [autocomplete, setAutocomplete] = useState(null)
+    const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
     const [input, setInput] = useState('')
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
