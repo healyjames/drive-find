@@ -17,6 +17,7 @@ const loading = <div className="flex justify-center items-center"><div><LogoAnim
 export const Form = (props: FormProps) => {
 
     const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
+    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>()
     const [input, setInput] = useState('')
 
     const onLoad = (autoC: google.maps.places.Autocomplete): void => {
@@ -26,7 +27,7 @@ export const Form = (props: FormProps) => {
     const onPlaceChanged = (): void => {
         if (autocomplete !== null) {
             const place = autocomplete.getPlace()
-            console.log(place);
+            setPlace(place)
             setInput(place.formatted_address || "")
         } else {
             console.error('Autocomplete is not loaded yet :/')
@@ -40,7 +41,7 @@ export const Form = (props: FormProps) => {
     return (
         <React.Fragment>
             <AutocompleteProvider error={error} loading={loading}>
-                <form action="/results" method="POST" className={`${props.className} max-w-md w-full px-4`}>
+                <form action="/results" method="GET" className={`${props.className} max-w-md w-full px-4`}>
                     <div className="mb-2">
                         <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your location</label>
                         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
@@ -54,6 +55,8 @@ export const Form = (props: FormProps) => {
                                 required
                             />
                         </Autocomplete>
+                        <input type="hidden" name="lat" value={`${place?.geometry?.location?.lat()}` || ''} />
+                        <input type="hidden" name="lng" value={`${place?.geometry?.location?.lng()}` || ''} />
                     </div>
                     <button type="submit" className="btn-light">Go</button>
                 </form>
