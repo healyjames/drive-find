@@ -11,8 +11,6 @@ interface FormProps {
     className: string
 }
 
-const libraries = ['places']
-
 const error = <p>error</p>
 const loading = <div className="flex justify-center items-center"><div><LogoAnimation /></div></div>
 
