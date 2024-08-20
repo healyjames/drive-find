@@ -2,13 +2,11 @@
 
 import React from "react"
 
-import { GoogleMap, Libraries, useJsApiLoader } from '@react-google-maps/api'
+import { GoogleMap } from '@react-google-maps/api'
 
 import { LogoAnimation } from "../loading/logo-animation"
 import { GoogleApiProvider as MapProvider } from "../utils/google"
 import googleMapWizardStyling from './wizard.json'
-
-const libraries = ['places', 'drawing', 'geometry']
 
 interface MapTypeStyle {
     elementType?: string | null;
