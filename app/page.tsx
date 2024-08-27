@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { Form } from "./components/form/form"
 import { FacebookIcon, InstagramIcon, XIcon } from "./components/icons/icon"
@@ -9,13 +10,15 @@ export default function Home() {
     <main className="h-screen min-h-screen w-full bg-primary-base">
       <Banner>This app is currently in Beta mode</Banner>
       <div className="h-full grid grid-col grid-rows-3 justify-items-center p-4 pt-14">
-        <Image
-          src="/logo/primary.svg"
-          alt=""
-          width={120}
-          height={120}
-          className="self-center"
-        />
+        <Link href="/">
+          <Image
+            src="/logo/primary.svg"
+            alt=""
+            width={120}
+            height={120}
+            className="self-center"
+          />
+        </Link>
 
         <Form className="self-center" />
         
