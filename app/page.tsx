@@ -22,13 +22,13 @@ export default function Home() {
         <div className="self-end flex justify-between items-center w-full px-4">
           <div><p className="text-xs">© DriveFind by <a href="#" className="link link--black link--hover-underlined" target="_blank">James Healy</a></p></div>
           <div className="flex flex-row gap-2 p-2">
-            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-secondary-base cursor-pointer">
+            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
               <FacebookIcon />
             </a>
-            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-secondary-base cursor-pointer">
+            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
               <InstagramIcon />
             </a>
-            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-secondary-base cursor-pointer">
+            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
               <XIcon />
             </a>
           </div>
