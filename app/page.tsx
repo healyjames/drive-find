@@ -10,13 +10,12 @@ export default function Home() {
     <main className="h-screen min-h-screen w-full bg-primary-base">
       <Banner>This app is currently in Beta mode</Banner>
       <div className="h-full grid grid-col grid-rows-3 justify-items-center p-4 pt-14">
-        <Link href="/">
+        <Link href="/" className="self-center">
           <Image
             src="/logo/primary.svg"
             alt=""
             width={120}
             height={120}
-            className="self-center"
           />
         </Link>
 
@@ -25,15 +24,15 @@ export default function Home() {
         <div className="self-end flex justify-between items-center w-full px-4">
           <div><p className="text-xs">© DriveFind by <a href="#" className="link link--black link--hover-underlined" target="_blank">James Healy</a></p></div>
           <div className="flex flex-row gap-2 p-2">
-            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
+            <Link href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
               <FacebookIcon />
-            </a>
-            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
+            </Link>
+            <Link href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
               <InstagramIcon />
-            </a>
-            <a href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
+            </Link>
+            <Link href="#" className="p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer">
               <XIcon />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

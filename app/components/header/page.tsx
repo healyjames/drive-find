@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { HamburgerIcon } from "../icons/icon"
 
@@ -11,7 +12,7 @@ export default function Header() {
                 </div>
             </div>
             <div>
-                <a href="/" className="btn btn-ghost text-xl">
+                <Link href="/" className="btn btn-ghost text-xl">
                     <Image
                         src="/logo/primary.svg"
                         alt=""
@@ -19,7 +20,7 @@ export default function Header() {
                         height={120}
                         className="self-start"
                     />
-                </a>
+                </Link>
             </div>
             <div className="flex flex-row flex-nowrap gap-1">
                 <button className="px-1 py-2 cursor-not-allowed">
