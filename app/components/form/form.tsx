@@ -55,8 +55,8 @@ export const Form = (props: FormProps) => {
                                 required
                             />
                         </Autocomplete>
-                        <input type="hidden" name="lat" value={`${place?.geometry?.location?.lat()}` || ''} />
-                        <input type="hidden" name="lng" value={`${place?.geometry?.location?.lng()}` || ''} />
+                        <input type="hidden" name="lat" value={place?.geometry?.location?.lat() || ''} />
+                        <input type="hidden" name="lng" value={place?.geometry?.location?.lng() || ''} />
                     </div>
                     <button type="submit" className="btn-light">Go</button>
                 </form>
