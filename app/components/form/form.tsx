@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useCallback, ChangeEvent } from "react"
+import React, { useEffect, useState, useRef, useCallback, ChangeEvent } from "react"
 import { useRouter } from "next/navigation"
 
 import { Autocomplete } from '@react-google-maps/api'
@@ -20,6 +20,7 @@ export const Form = (props: FormProps) => {
     const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
     const [place, setPlace] = useState<google.maps.places.PlaceResult | null>()
     const [input, setInput] = useState('')
+    const [submit, setSubmit] = useState(false)
     const router = useRouter()
 
     const onLoad = (autoC: google.maps.places.Autocomplete): void => {
@@ -30,10 +31,16 @@ export const Form = (props: FormProps) => {
         const autocomplete = autocompleteRef.current
         if (autocomplete !== null) {
             const getPlace = autocomplete.getPlace()
-            setPlace(getPlace)
-            setInput(getPlace.formatted_address || "")
+            if (getPlace) {
+                console.log("getPlace", getPlace)
+                setPlace(getPlace);
+                setInput(getPlace.formatted_address || "")
+                setSubmit(true)
+            } else {
+                console.warn('Place data is incomplete or not available yet.')
+            }
         } else {
-            console.error('Autocomplete is not loaded yet :/')
+            console.error('Autocomplete is not loaded yet.')
         }
     }
 
@@ -41,18 +48,18 @@ export const Form = (props: FormProps) => {
         setInput(e.target.value)
     }, [])
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        // router.push(`/results?lat=${place?.geometry?.location?.lat()}&lng=${place?.geometry?.location?.lng()}`)
-    }
+    useEffect(() => {
+        if (submit) {
+            router.push(`/results?lat=${place?.geometry?.location?.lat()}&lng=${place?.geometry?.location?.lng()}`)
+        }
+    }, [submit])
 
     return (
         <React.Fragment>
             <AutocompleteProvider error={error} loading={loading}>
-                <form onSubmit={onSubmit} className={`${props.className} max-w-md w-full px-4`}>
+                <form onSubmit={(e) => {e.preventDefault()}} className={`${props.className} max-w-md w-full px-4`}>
                     <div className="mb-2">
                         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                            {/* TODO: need to fix: partially filling form, selecting with keyboard and hitting enter can have undefined lat lng */}
                             <input 
                                 type="text"
                                 id="location"
