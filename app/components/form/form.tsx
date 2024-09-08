@@ -30,7 +30,7 @@ export const Form = (props: FormProps) => {
             setPlace(place)
             setInput(place.formatted_address || "")
         } else {
-            console.error('Autocomplete is not loaded yet :/')
+            console.error('Autocomplete is not loaded yet.')
         }
     }
 
