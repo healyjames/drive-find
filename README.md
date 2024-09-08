@@ -3,8 +3,12 @@ Drive Find
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies with NPM:
+```bash
+npm i
+```
 
+2. Run the application in development mode:
 ```bash
 npm run dev
 ```
