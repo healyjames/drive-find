@@ -3,9 +3,13 @@ import Link from "next/link"
 
 import { HamburgerIcon } from "../icons/icon"
 
-export default function Header() {
+interface HeaderProps {
+    outerClass?: string
+}
+
+export default function Header(props: HeaderProps) {
     return (
-        <div className="absolute top-0 left-0 w-full z-10 flex justify-between items-center p-4 bg-primary-base shadow">
+        <div className={`${props.outerClass} top-0 left-0 w-full z-10 flex justify-between items-center p-4 bg-primary-base shadow`}>
             <div className="navbar-start">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                     <HamburgerIcon />

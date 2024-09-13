@@ -4,7 +4,7 @@ import Header from '../components/header/page'
 export default function Results() {
     return (
         <div>
-            <Header />
+            <Header outerClass='absolute' />
             <Map />
         </div>
     )
