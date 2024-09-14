@@ -3,15 +3,27 @@ import "next-auth/jwt"
 
 import GitHub from "next-auth/providers/github"
 import type { NextAuthConfig } from "next-auth"
+import type { Provider } from "next-auth/providers"
+
+const providers: Provider[] = [
+  GitHub({
+    clientId: process.env.GITHUB_ID,
+    clientSecret: process.env.GITHUB_SECRET,
+  })
+]
+
+export const providerMap = providers.map((provider) => {
+  if (typeof provider === "function") {
+    const providerData = provider();
+    return { id: providerData.id, name: providerData.name };
+  } else {
+    return { id: provider.id, name: provider.name };
+  }
+})
 
 const config = {
   theme: { logo: "/images/auth-logo.png" },
-  providers: [
-    GitHub({
-        clientId: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET,
-    }),
-  ],
+  providers: providers,
   basePath: "/auth",
   callbacks: {
     authorized() {
