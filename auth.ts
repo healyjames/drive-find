@@ -28,6 +28,9 @@ const config = {
       return session
     },
   },
+  pages: {
+    signIn: '/login'
+  },
   experimental: {
     enableWebAuthn: true,
   },
