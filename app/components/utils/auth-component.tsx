@@ -1,10 +1,19 @@
 import { signIn, signOut } from "@/auth"
 import { Button } from "../button/button"
+import { GithubIcon } from "../icons/icon"
 
-export function SignIn({
+const LoginProviderComponent = (props: {children?: React.ReactNode}) => {
+  return(
+      <button className={`p-4 w-full border flex flex-row flex-nowrap justify-center gap-4 hover:bg-primary-light hover:border-primary-light`}>
+          {props.children}
+      </button>
+  )
+}
+
+export function GitHubSignIn({
   provider,
   ...props
-}: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
+}: { provider?: string } & React.ComponentPropsWithRef<typeof LoginProviderComponent>) {
   return (
     <form
       action={async () => {
@@ -12,7 +21,10 @@ export function SignIn({
         await signIn(provider)
       }}
     >
-      <Button {...props}>Sign In</Button>
+      <LoginProviderComponent>
+          <p>GitHub</p>
+          <GithubIcon />
+      </LoginProviderComponent>
     </form>
   )
 }

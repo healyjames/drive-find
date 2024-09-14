@@ -1,17 +1,13 @@
 import Link from 'next/link'
 
 import Header from '../components/header/page'
-import { GithubIcon } from '../components/icons/icon'
 
-const ProviderComponent = (props: {children: React.ReactNode}) => {
-    return(
-        <button className={`p-4 w-full border flex flex-row flex-nowrap justify-center gap-4 hover:bg-primary-light hover:border-primary-light`}>
-            {props.children}
-        </button>
-    )
-}
+import { GitHubSignIn } from '../components/utils/auth-component'
+import { auth } from '@/auth'
+import SessionData from '../components/utils/session-data'
 
-export default function Login() {
+export default async function Login() {
+    const session = await auth()
     return (
         <div className='h-screen flex flex-col'>
             <Header />
@@ -20,10 +16,9 @@ export default function Login() {
                     <p>Login with:</p>
                 </div>
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-                    <ProviderComponent>
-                        <p>GitHub</p>
-                        <GithubIcon />
-                    </ProviderComponent>
+
+                    {!session?.user ? <GitHubSignIn provider='GitHub'/> : <></>}
+                    
                     <div className='p-4 w-full border flex justify-center bg-grey-light text-primary-base'>
                         <p>More providers coming soon</p>
                     </div>
@@ -31,6 +26,8 @@ export default function Login() {
                 <div className='mt-16 text-center'>
                     <p>Not got an account? <Link href='/signup' className='border-b'>Sign up here.</Link></p>
                 </div>
+
+                <SessionData session={session} />
             </div>
         </div>
     )
