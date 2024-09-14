@@ -5,7 +5,7 @@ import GitHub from "next-auth/providers/github"
 import type { NextAuthConfig } from "next-auth"
 
 const config = {
-  theme: { logo: "https://authjs.dev/img/logo-sm.png" },
+  theme: { logo: "/images/auth-logo.png" },
   providers: [
     GitHub({
         clientId: process.env.GITHUB_ID,
@@ -17,7 +17,7 @@ const config = {
     authorized() {
       return true
     },
-    jwt({ token, trigger, session, account }) {
+    jwt({ token, trigger, session }) {
       if (trigger === "update") token.name = session.user.name
       return token
     },
