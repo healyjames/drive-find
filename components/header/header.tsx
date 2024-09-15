@@ -15,7 +15,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
+import { 
+    Avatar,
+    AvatarFallback,
+    AvatarImage
+} from "@/components/ui/avatar"
 
 interface HeaderProps {
     outerClass?: string
@@ -51,13 +55,10 @@ export const Header = async (props: HeaderProps) => {
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Link href="/login" className='rounded-full outline-none hover:outline-secondary-base focus:outline-secondary-base'>
-                                    <Image
-                                        src={session?.user?.image ?? `https://ui-avatars.com/api/?name=${session?.user?.name || 'U'}&format=png`}
-                                        alt=""
-                                        width={36}
-                                        height={36}
-                                        className="rounded-full"
-                                    />
+                                    <Avatar>
+                                        <AvatarImage src={session.user.image || undefined} alt="User avatar profile image" />
+                                        <AvatarFallback>U</AvatarFallback>
+                                    </Avatar>
                                 </Link>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
