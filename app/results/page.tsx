@@ -1,10 +1,10 @@
-import { Map } from '../components/map/map'
-import Header from '../components/header/page'
+import { Map } from '../../components/map/map'
+import { Header } from '../../components/header/header'
 
 export default function Results() {
     return (
         <div>
-            <Header />
+            <Header outerClass='absolute' />
             <Map />
         </div>
     )
