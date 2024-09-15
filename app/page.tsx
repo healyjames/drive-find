@@ -1,9 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { Form } from "./components/form/form"
-import { FacebookIcon, InstagramIcon, XIcon } from "./components/icons/icon"
-import { Banner } from "./components/banner/banner";
+import { Form } from "../components/form/form"
+import { FacebookIcon, InstagramIcon, XIcon } from "../components/icons/icon"
+import { Banner } from "../components/banner/banner";
 
 export default function Home() {
   return (

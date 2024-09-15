@@ -1,7 +1,7 @@
-import { Header } from "../components/header/header"
+import { Header } from "../../components/header/header"
 import { auth, signIn, signOut, providerMap } from "@/auth"
 
-import { GithubIcon, GoogleIcon } from '../components/icons/icon'
+import { GithubIcon, GoogleIcon } from '../../components/icons/icon'
 
 const ProviderSignInButton = (props: {name: string}) => {
     return (
