@@ -1,7 +1,5 @@
-
 import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
 import { FacebookIcon, InstagramIcon, XIcon } from "../icons/icon"
 
 export const Footer = () => {

@@ -2,8 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { Form } from "@/components/form/form"
-import { Footer } from "@/components/footer/footer";
-import { Banner } from "@/components/banner/banner";
+import { Footer } from "@/components/footer/footer"
+import { Banner } from "@/components/banner/banner"
 
 export default function Home() {
   return (
@@ -18,9 +18,7 @@ export default function Home() {
             height={120}
           />
         </Link>
-
         <Form className="self-center" />
-        
         <Footer />
       </div>
     </main>
