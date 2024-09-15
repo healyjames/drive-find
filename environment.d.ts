@@ -3,8 +3,8 @@ declare global {
         interface ProcessEnv {
             NEXT_PUBLIC_GOOGLE_MAP_API: string
             ENV: string
-            GOOGLE_CLIENT_ID: string,
-            GOOGLE_CLIENT_SECRET: string,
+            GOOGLE_ID: string,
+            GOOGLE_SECRET: string,
             GITHUB_ID: string,
             GITHUB_SECRET: string,
         }

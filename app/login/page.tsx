@@ -1,13 +1,14 @@
 import Header from '../components/header/page'
 import { auth, signIn, signOut, providerMap } from "@/auth"
 
-import { GithubIcon } from '../components/icons/icon'
+import { GithubIcon, GoogleIcon } from '../components/icons/icon'
 
 const ProviderSignInButton = (props: {name: string}) => {
     return (
         <button className={`p-4 w-full border flex flex-row flex-nowrap justify-center gap-4 hover:bg-primary-light hover:border-primary-light`}>
-            <p>Sign in with {props.name}</p>
+            <p>{props.name}</p>
             {props.name === "GitHub" && <GithubIcon />}
+            {props.name === "Google" && <GoogleIcon />}
         </button>
     )
 }
@@ -23,11 +24,11 @@ export default async function Login() {
                         <div className='mb-4'>
                             <p>Login with:</p>
                         </div>
+                        
                         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-
-                            {Object.values(providerMap).map((provider) => (
+                            {Object.values(providerMap).map((provider, index, arr) => (
                                     <form
-                                        className="[&>div]:last-of-type:hidden"
+                                        className={`[&>div]:last-of-type:hidden md:col-span-1 ${index === arr.length - 1 && arr.length % 2 !== 0 ? 'md:col-span-2' : ''}`}
                                         key={provider.id}
                                         action={async () => {
                                             "use server"
@@ -37,11 +38,11 @@ export default async function Login() {
                                         <ProviderSignInButton name={provider.name} />
                                     </form>
                                 ))}
-                            
-                            <div className='p-4 w-full border flex justify-center bg-grey-light text-primary-base'>
+                            <div className='p-4 w-full border flex justify-center bg-grey-light text-primary-base md:col-span-2'>
                                 <p>More providers coming soon</p>
                             </div>
                         </div>
+
                     </>
                 ) : (
                     <form
