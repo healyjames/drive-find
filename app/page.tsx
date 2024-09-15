@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="h-[80vh] min-h-[80vh] w-full bg-primary-base">
       <Banner>This app is currently in Beta mode</Banner>
-      <Header />
+      <Header removeLogo={true}/>
       <div className="h-full grid grid-col grid-rows-3 justify-items-center p-4 pt-14">
         <Link href="/" className="self-center">
           <Image

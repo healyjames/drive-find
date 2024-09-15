@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 
 interface HeaderProps {
     outerClass?: string
+    removeLogo?: boolean
 }
 
 export const Header = async (props: HeaderProps) => {
@@ -29,17 +30,19 @@ export const Header = async (props: HeaderProps) => {
                     <HamburgerIcon />
                 </div>
             </div>
-            <div>
-                <Link href="/" className="btn btn-ghost text-xl">
-                    <Image
-                        src="/logo/primary.svg"
-                        alt=""
-                        width={75}
-                        height={120}
-                        className="self-start"
-                    />
-                </Link>
-            </div>
+            {!props.removeLogo && (
+                <div>
+                    <Link href="/" className="btn btn-ghost text-xl">
+                        <Image
+                            src="/logo/primary.svg"
+                            alt=""
+                            width={75}
+                            height={120}
+                            className="self-start"
+                        />
+                    </Link>
+                </div>
+            )}
             <div className="flex flex-row flex-nowrap gap-1">
                 {
                     session?.user ? (
