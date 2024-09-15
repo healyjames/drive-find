@@ -1,4 +1,4 @@
-import Header from '../components/header/page'
+import { Header } from "../components/header/header"
 import { auth, signIn, signOut, providerMap } from "@/auth"
 
 import { GithubIcon, GoogleIcon } from '../components/icons/icon'

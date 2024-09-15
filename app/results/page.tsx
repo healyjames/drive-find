@@ -1,5 +1,5 @@
 import { Map } from '../components/map/map'
-import Header from '../components/header/page'
+import { Header } from '../components/header/header'
 
 export default function Results() {
     return (

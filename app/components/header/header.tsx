@@ -8,7 +8,7 @@ interface HeaderProps {
     outerClass?: string
 }
 
-export default async function Header(props: HeaderProps) {
+export const Header = async (props: HeaderProps) => {
     const session = await auth()
 
     return (
