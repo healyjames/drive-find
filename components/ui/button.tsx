@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 // border border-2 border-grey-base bg-grey-base text-primary-base rounded-lg px-6 py-2 px-4 w-full hover:bg-grey-dark text-lg focus-within:outline focus-within:outline-offset-[-4px] focus-within:outline-primary-base focus-within:outline-2
 
 const buttonVariants = cva(
-  "w-full inline-flex items-center justify-center whitespace-nowrap rounded-lg text-lg transition-colors focus-within:outline focus-within:outline-offset-[-4px] focus-within:outline-primary-base focus-within:outline-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-slate-300",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm transition-colors focus-within:outline focus-within:outline-offset-[-4px] focus-within:outline-primary-base focus-within:outline-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-slate-300",
   {
     variants: {
       variant: {

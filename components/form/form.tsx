@@ -69,13 +69,14 @@ export const Form = (props: FormProps) => {
                                 placeholder="Your location..."
                                 value={input}
                                 onChange={handleInputChange}
+                                className="w-full text-lg"
                                 required
                             />
                         </Autocomplete>
                         <input type="hidden" name="lat" value={`${place?.geometry?.location?.lat()}` || ''} />
                         <input type="hidden" name="lng" value={`${place?.geometry?.location?.lng()}` || ''} />
                     </div>
-                    <Button type="submit">Go</Button>
+                    <Button type="submit" className="w-full text-lg">Go</Button>
                 </form>
             </AutocompleteProvider>
         </React.Fragment>
