@@ -43,19 +43,17 @@ export const Header = async (props: HeaderProps) => {
             <div className="flex flex-row flex-nowrap gap-1">
                 {
                     session?.user ? (
-                        <Link href="/login" className='rounded-full outline-none hover:outline-secondary-base focus:outline-secondary-base'>
-                            <Image
-                                src={session?.user?.image ?? `https://ui-avatars.com/api/?name=${session?.user?.name}&format=png`}
-                                alt=""
-                                width={36}
-                                height={36}
-                                className="rounded-full"
-                            />
-                        </Link>
-                    ) : (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button>Open</Button>
+                                <Link href="/login" className='rounded-full outline-none hover:outline-secondary-base focus:outline-secondary-base'>
+                                    <Image
+                                        src={session?.user?.image ?? `https://ui-avatars.com/api/?name=${session?.user?.name || 'U'}&format=png`}
+                                        alt=""
+                                        width={36}
+                                        height={36}
+                                        className="rounded-full"
+                                    />
+                                </Link>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -67,6 +65,8 @@ export const Header = async (props: HeaderProps) => {
                                 </DropdownMenuGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
+                    ) : (
+                        <Button><Link href="/login">Sign in</Link></Button>
                     )
                 }
             </div>
