@@ -15,7 +15,6 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
 }
 
@@ -65,4 +64,10 @@ body {
 
 .animate-flip {
   animation: flip 2s infinite;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
 }
