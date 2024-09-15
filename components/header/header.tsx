@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { HamburgerIcon } from "@/components/icons/icon"
-import { auth } from "@/auth"
+import { auth, signOut } from "@/auth"
 
 import { 
     DropdownMenu,
@@ -61,7 +61,18 @@ export const Header = async (props: HeaderProps) => {
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem>Profile</DropdownMenuItem>
                                     <DropdownMenuItem>Settings</DropdownMenuItem>
-                                    <DropdownMenuItem>Sign out</DropdownMenuItem>
+                                    <DropdownMenuItem>
+                                        <form
+                                            action={async () => {
+                                                "use server"
+                                                await signOut()
+                                            }}
+                                        >
+                                            <button>
+                                                <p>Sign Out</p>
+                                            </button>
+                                        </form>
+                                    </DropdownMenuItem>
                                 </DropdownMenuGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
