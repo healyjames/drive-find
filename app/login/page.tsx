@@ -1,7 +1,7 @@
-import { Header } from "../../components/header/header"
+import { Header } from "@/components/header/header"
 import { auth, signIn, signOut, providerMap } from "@/auth"
-
-import { GithubIcon, GoogleIcon } from '../../components/icons/icon'
+import { GithubIcon, GoogleIcon } from '@/components/icons/icon'
+import { Separator } from "@/components/ui/separator"
 
 const ProviderSignInButton = (props: {name: string}) => {
     return (
@@ -22,7 +22,9 @@ export default async function Login() {
                 {!session?.user ? (
                     <>
                         <div className='mb-4'>
-                            <p>Login with:</p>
+                            <h4>Login</h4>
+                            <p className="text-sm text-primary-light">Choose one of the following providers</p>
+                            <Separator className="my-4 bg-primary-light" />
                         </div>
                         
                         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>

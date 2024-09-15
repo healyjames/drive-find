@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { PersonIcon } from "@radix-ui/react-icons"
+
 import { HamburgerIcon } from "@/components/icons/icon"
 import { auth, signOut } from "@/auth"
 
@@ -26,7 +28,7 @@ export const Header = async (props: HeaderProps) => {
     return (
         <div className={`${props.outerClass || ''} top-0 left-0 w-full z-10 flex justify-between items-center p-4 bg-primary-base shadow`}>
             <div className="navbar-start">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+                <div tabIndex={0} role="button" className="p-2 rounded-full hover:bg-primary-light focus:bg-primary-light">
                     <HamburgerIcon />
                 </div>
             </div>
@@ -80,7 +82,9 @@ export const Header = async (props: HeaderProps) => {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        <Button><Link href="/login">Sign in</Link></Button>
+                        <Link href="/login" className="p-2 rounded-full hover:bg-primary-light focus:bg-primary-light">
+                            <PersonIcon className="h-6 w-6" />
+                        </Link>
                     )
                 }
             </div>
