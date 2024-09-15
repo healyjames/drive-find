@@ -9,6 +9,7 @@ import { GoogleApiProvider as AutocompleteProvider } from "../utils/google"
 import { LogoAnimation } from "../loading/logo-animation"
 
 import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 interface FormProps {
     className: string
@@ -74,7 +75,7 @@ export const Form = (props: FormProps) => {
                         <input type="hidden" name="lat" value={`${place?.geometry?.location?.lat()}` || ''} />
                         <input type="hidden" name="lng" value={`${place?.geometry?.location?.lng()}` || ''} />
                     </div>
-                    <button type="submit" className="btn-light">Go</button>
+                    <Button type="submit">Go</Button>
                 </form>
             </AutocompleteProvider>
         </React.Fragment>
