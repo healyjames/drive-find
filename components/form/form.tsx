@@ -8,6 +8,9 @@ import { Autocomplete } from '@react-google-maps/api'
 import { GoogleApiProvider as AutocompleteProvider } from "../utils/google"
 import { LogoAnimation } from "../loading/logo-animation"
 
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
+
 interface FormProps {
     className: string
 }
@@ -60,20 +63,20 @@ export const Form = (props: FormProps) => {
                 <form onSubmit={(e) => {e.preventDefault()}} className={`${props.className} max-w-md w-full px-4`}>
                     <div className="mb-2">
                         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                            <input 
+                            <Input 
                                 type="text"
                                 id="location"
-                                className="form-input-light"
                                 placeholder="Your location..."
                                 value={input}
                                 onChange={handleInputChange}
+                                className="w-full text-lg"
                                 required
                             />
                         </Autocomplete>
                         <input type="hidden" name="lat" value={`${place?.geometry?.location?.lat()}` || ''} />
                         <input type="hidden" name="lng" value={`${place?.geometry?.location?.lng()}` || ''} />
                     </div>
-                    <button type="submit" className="btn-light">Go</button>
+                    <Button type="submit" className="w-full text-lg">Go</Button>
                 </form>
             </AutocompleteProvider>
         </React.Fragment>
