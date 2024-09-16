@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { FacebookIcon, InstagramIcon, XIcon } from "../icons/icon"
+import { FacebookIcon, InstagramIcon, XIcon } from "@/components/icons"
 
 export const Footer = () => {
     const linkStyle = "p-2 rounded-full flex justify-center items-center transition-all duration-500 hover:bg-primary-base cursor-pointer"

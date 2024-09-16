@@ -5,11 +5,10 @@ import { useRouter } from "next/navigation"
 
 import { Autocomplete } from '@react-google-maps/api'
 
-import { GoogleApiProvider as AutocompleteProvider } from "../utils/google"
-import { LogoAnimation } from "../loading/logo-animation"
-
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
+import { GoogleApiProvider as AutocompleteProvider } from "@/components/utils/google"
+import { LogoAnimation } from "@/components/loading/logo-animation"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 interface FormProps {
     className: string

@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react"
 
 import { GoogleMap } from '@react-google-maps/api'
 
-import { LogoAnimation } from "../loading/logo-animation"
-import { GoogleApiProvider as MapProvider } from "../utils/google"
+import { LogoAnimation } from "@/components/loading/logo-animation"
+import { GoogleApiProvider as MapProvider } from "@/components/utils/google"
 import googleMapWizardStyling from './wizard.json'
 
 interface MapTypeStyle {
