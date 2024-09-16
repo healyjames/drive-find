@@ -3,10 +3,8 @@ import Link from "next/link"
 
 import { auth, signOut } from "@/auth"
 import { PersonIcon } from "@radix-ui/react-icons"
-import { HamburgerIcon } from "@/components/icons/icon"
-
-import { Menu } from "@/components/menu/menu"
-
+import { HamburgerIcon } from "@/components/icons"
+import { Menu } from "@/components/menu"
 import { 
     DropdownMenu,
     DropdownMenuContent,

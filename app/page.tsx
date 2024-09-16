@@ -1,10 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { Form } from "@/components/form/form"
-import { Footer } from "@/components/footer/footer"
-import { Banner } from "@/components/banner/banner"
-import { Header } from "@/components/header/header"
+import { Form } from "@/components/form"
+import { Footer } from "@/components/footer"
+import { Banner } from "@/components/banner"
+import { Header } from "@/components/header"
 
 export default function Home() {
   return (
@@ -24,5 +24,5 @@ export default function Home() {
         <Footer />
       </div>
     </main>
-  );
+  )
 }

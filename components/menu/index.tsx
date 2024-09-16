@@ -21,7 +21,7 @@ import {
   AlertTitle
 } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
-import { HamburgerIcon } from "@/components/icons/icon"
+import { HamburgerIcon } from "@/components/icons"
 
 const HamburgerMenuIcon = () => {
   return(
