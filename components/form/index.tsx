@@ -35,7 +35,7 @@ export const Form = (props: FormProps) => {
             const getPlace = autocomplete.getPlace()
             if (getPlace) {
                 console.log("getPlace", getPlace)
-                setPlace(getPlace);
+                setPlace(getPlace)
                 setInput(getPlace.formatted_address || "")
                 setSubmit(true)
             } else {
