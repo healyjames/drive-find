@@ -9,9 +9,9 @@ import { GoogleApiProvider as MapProvider } from "@/components/utils/google"
 import googleMapWizardStyling from './wizard.json'
 
 interface MapTypeStyle {
-    elementType?: string | null;
-    featureType?: string | null;
-    stylers: object[];
+    elementType?: string | null
+    featureType?: string | null
+    stylers: object[]
 }
 
 const mapStyle: MapTypeStyle[] = googleMapWizardStyling as MapTypeStyle[]
