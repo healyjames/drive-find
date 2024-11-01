@@ -38,7 +38,7 @@ const config = {
       if (trigger === "update") token.name = session.user.name
       if (account) {
         token.accessToken = account.access_token
-        token.id = profile?.id
+        token.id = profile?.id || profile?.sub
         console.log("AAA", token.accessToken)
         console.log("BBB", token.id)
       }
