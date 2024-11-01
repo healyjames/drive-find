@@ -34,13 +34,22 @@ const config = {
     authorized() {
       return true
     },
-    jwt({ token, trigger, session }) {
+    jwt({ token, account, trigger, session, profile }) {
       if (trigger === "update") token.name = session.user.name
+      if (account) {
+        token.accessToken = account.access_token
+        token.id = profile?.id
+        console.log("AAA", token.accessToken)
+        console.log("BBB", token.id)
+      }
       return token
     },
     async session({ session, token }) {
-      if (token?.accessToken) {
+      if(token?.accessToken) {
         session.accessToken = token.accessToken
+      }
+      if(token?.id) {
+        session.id = token.id
       }
       return session
     },
@@ -59,6 +68,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth(config)
 declare module "next-auth" {
   interface Session {
     accessToken?: string
+    id?: {}
   }
 }
 

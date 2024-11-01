@@ -47,6 +47,8 @@ export default async function Login() {
 
                     </>
                 ) : (
+                    <>
+                    {session.id}
                     <form
                         action={async () => {
                             "use server"
@@ -58,6 +60,7 @@ export default async function Login() {
                             <p>Sign Out</p>
                         </button>
                     </form>
+                    </>
                 )}
 
                 {/* <div className='mt-16 text-center'>
