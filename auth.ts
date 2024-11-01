@@ -39,8 +39,6 @@ const config = {
       if (account) {
         token.accessToken = account.access_token
         token.id = profile?.id || profile?.sub
-        console.log("AAA", token.accessToken)
-        console.log("BBB", token.id)
       }
       return token
     },
