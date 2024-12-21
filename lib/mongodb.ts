@@ -3,8 +3,7 @@
 
 import { MongoClient, Db } from "mongodb"
 
-let client: MongoClient | null = null
-let db: Db | null = null
+let client: MongoClient
 
 if (!process.env.MONGODB_URI) {
   throw new Error('[ERROR] [DB CONNECTION]: Invalid/Missing environment variable: "MONGODB_URI"')
