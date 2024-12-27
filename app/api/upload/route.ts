@@ -11,9 +11,15 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 			.limit(10)
 			.toArray()
 
-			return res.status(200).json(movies)
+			return new Response(JSON.stringify(movies), {
+				status: 200,
+				headers: { "Content-Type": "application/json" },
+			})
 	} catch (e) {
 		console.error(e)
-		return res.status(500).json({ "Error fetching data: ": e })
+		return new Response(JSON.stringify({ error: "Error fetching data", details: e }), {
+			status: 500,
+			headers: { "Content-Type": "application/json" },
+		})
 	}
 }
