@@ -11,9 +11,9 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 			.limit(10)
 			.toArray()
 
-			return Response.json(res.json(movies))
+			return res.status(200).json(movies)
 	} catch (e) {
 		console.error(e)
-		return Response.json({ "Error fetching data: ": e })
+		return res.status(500).json({ "Error fetching data: ": e })
 	}
 }
