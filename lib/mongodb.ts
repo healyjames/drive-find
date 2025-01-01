@@ -1,7 +1,7 @@
 // Boilerplate code taken from: 
 // https://github.com/mongodb-developer/nextjs-with-mongodb/blob/main/lib/mongodb.ts
 
-import { MongoClient, Db } from "mongodb"
+import { MongoClient } from "mongodb"
 
 let client: MongoClient
 
