@@ -3,12 +3,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
 	try {
-		const db = client.db("sample_mflix") // update once new db configured
+		const db = client.db("drive_find")
 		const movies = await db
-			.collection("movies")
+			.collection("users")
 			.find({})
-			.sort({ metacritic: -1 })
-			.limit(10)
+			// .sort({ metacritic: -1 })
+			// .limit(10)
 			.toArray()
 
 			return new Response(JSON.stringify(movies), {
