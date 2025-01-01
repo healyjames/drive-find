@@ -9,6 +9,8 @@ export async function POST(request: Request) {
 			.collection("users")
 			.insertOne(res)
 
+			// TODO: Add logging function to handle formatting for consistency
+			console.log(`[USER] [INSERT] [SUCCESS]: Successfully added ${res.name} (${res.email}) | userID: ${res.userId}`)
 			return new Response(JSON.stringify({
 				message: "New User Added Successfully.",
 				detials: res
@@ -17,7 +19,7 @@ export async function POST(request: Request) {
 				headers: { "Content-Type": "application/json" },
 			})
 	} catch (e) {
-		console.error(e)
+		console.error(`[USER] [INSERT] [FAIL]: Failed to add new user`)
 		return new Response(JSON.stringify({ error: "Error adding new user.", details: e }), {
 			status: 500,
 			headers: { "Content-Type": "application/json" },
