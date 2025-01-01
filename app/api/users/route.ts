@@ -1,5 +1,8 @@
-import client from "../../../lib/mongodb";
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next'
+import client from "@/lib/mongodb"
+import { LOGGER } from "@/lib/utils"
+
+const LOG = LOGGER()
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
 	try {
@@ -7,8 +10,6 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 		const users = await db
 			.collection("users")
 			.find({})
-			// .sort({ metacritic: -1 })
-			// .limit(10)
 			.toArray()
 
 			return new Response(JSON.stringify(users), {
@@ -17,6 +18,13 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 			})
 	} catch (e) {
 		console.error(e)
+		LOG.error({
+			tags: '[USER] [GET]',
+			message: 'Failed to get users.',
+			path: '/api/users',
+			error: e as string
+		})
+
 		return new Response(JSON.stringify({ error: "Error fetching data", details: e }), {
 			status: 500,
 			headers: { "Content-Type": "application/json" },
