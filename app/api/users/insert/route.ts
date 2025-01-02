@@ -5,21 +5,21 @@ import { LOGGER } from "@/lib/utils"
 const LOG = LOGGER()
 
 export async function POST(request: Request) {
-  const res: Document = await request.json()
+  const req: Document = await request.json()
 
   try {
 		await client.db("drive_find")
 			.collection("users")
-			.insertOne(res)
+			.insertOne(req)
 
 			LOG.success({
 				tags: '[USER] [INSERT]',
-				message: `Successfully added ${res.name} (${res.email}) | userID: ${res.userId}`,
+				message: `Successfully added ${req.name} (${req.email}) | userID: ${req.userId}`,
 			})
 			
 			return new Response(JSON.stringify({
 				message: "New User Added Successfully.",
-				detials: res
+				detials: req
 			}), {
 				status: 200,
 				headers: { "Content-Type": "application/json" },
