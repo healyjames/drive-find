@@ -13,6 +13,7 @@ export async function GET(
 		const user = await db
 			.collection("users")
 			.find({userId: userId})
+			.limit(1)
 			.toArray()
 
 			if(user.length === 0 || !user) {
