@@ -1,10 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { auth } from "@/auth"
 import client from "@/lib/mongodb"
 import { LOGGER } from "@/lib/utils"
 
 const LOG = LOGGER()
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
+	const session = await auth()
+
+	if (!session) {
+		return new Response(JSON.stringify({ error: "Error fetching data", details: "You must be signed in to access the content on this page." }), {
+			status: 500,
+			headers: { "Content-Type": "application/json" },
+		})
+	}
+
 	try {
 		const db = client.db("drive_find")
 		const users = await db
