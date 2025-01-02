@@ -17,12 +17,13 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 				headers: { "Content-Type": "application/json" },
 			})
 	} catch (e) {
-		console.error(e)
+		const err = e as Error
 		LOG.error({
-			tags: '[USER] [GET]',
+			tags: '[USERS] [GET]',
 			message: 'Failed to get users.',
 			path: '/api/users',
-			error: e as string
+			error: err,
+			body: JSON.stringify(req.body)
 		})
 
 		return new Response(JSON.stringify({ error: "Error fetching data", details: e }), {

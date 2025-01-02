@@ -25,11 +25,12 @@ export async function POST(request: Request) {
 				headers: { "Content-Type": "application/json" },
 			})
 	} catch (e) {
+		const err = e as Error
 		LOG.error({
 			tags: '[USER] [INSERT]',
 			message: 'Failed to add new user.',
 			path: '/api/users/insert',
-			error: e as string
+			error: err
 		})
 		
 		return new Response(JSON.stringify({ error: "Error adding new user.", details: e }), {
