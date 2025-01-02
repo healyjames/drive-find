@@ -5,7 +5,7 @@ interface LOG {
   tags: string
   path?: string
   message: string
-  error?: string
+  error?: Error
   body?: string
 }
 
@@ -31,7 +31,7 @@ export const LOGGER = () => {
         message: message,
         path: path,
         body: JSON.stringify(body) || 'unknown',
-        error: error || 'unknown',
+        error: error?.stack
       })
     },
     success: ({ tags, message }: LOG) => {
