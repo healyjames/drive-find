@@ -1,33 +1,43 @@
-// Boilerplate code taken from: 
-// https://github.com/mongodb-developer/nextjs-with-mongodb/blob/main/lib/mongodb.ts
+import mongoose from "mongoose"
 
-import { MongoClient } from "mongodb"
-
-let client: MongoClient
-
-if (!process.env.MONGODB_URI) {
-  throw new Error('[ERROR] [DB CONNECTION]: Invalid/Missing environment variable: "MONGODB_URI"')
-}
-  
-const uri = process.env.MONGODB_URI
-const options = {}
-
-if (process.env.ENV === "dev") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClient?: MongoClient
-  }
-
-  if (!globalWithMongo._mongoClient) {
-    globalWithMongo._mongoClient = new MongoClient(uri, options)
-  }
-  client = globalWithMongo._mongoClient
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options)
+declare global {
+  var mongoose: any // This must be a `var` and not a `let / const`
 }
 
-// Export a module-scoped MongoClient. By doing this in a
-// separate module, the client can be shared across functions.
-export default client
+let cached = global.mongoose
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null }
+}
+
+async function dbConnect() {
+  const MONGODB_URI = process.env.MONGODB_URI!
+
+  if (!MONGODB_URI) {
+    throw new Error('[ERROR] [DB CONNECTION]: Invalid/Missing environment variable: "MONGODB_URI"')
+  }
+
+  if (cached.conn) {
+    return cached.conn
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    }
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose
+    })
+  }
+
+  try {
+    cached.conn = await cached.promise
+  } catch (e) {
+    cached.promise = null
+    throw e
+  }
+
+  return cached.conn
+}
+
+export default dbConnect
