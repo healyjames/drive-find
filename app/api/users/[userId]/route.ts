@@ -1,4 +1,5 @@
-import client from "@/lib/mongodb"
+import dbConnect from "@/lib/mongodb"
+import User from "@/models/User"
 import { LOGGER } from "@/lib/utils"
 
 const LOG = LOGGER()
@@ -8,22 +9,21 @@ export async function GET(
 ) {
 	const userId = (await params).userId
 
+	await dbConnect()
+
 	try {
-		const db = client.db("drive_find")
-		const user = await db
-			.collection("users")
-			.find({userId: userId})
+		const user = await User
+			.find({ userId: userId })
 			.limit(1)
-			.toArray()
 
-			if(user.length === 0 || !user) {
-				throw Error(`No results found for ${userId}`)
-			}
+		if(user.length === 0 || !user) {
+			console.log(`[USER] [GET] [ERROR]: No results found for ${userId}`)
+		}
 
-			return new Response(JSON.stringify(user), {
-				status: 200,
-				headers: { "Content-Type": "application/json" },
-			})
+		return new Response(JSON.stringify(user), {
+			status: 200,
+			headers: { "Content-Type": "application/json" },
+		})
 	} catch (e) {
 		const err = e as Error
 		LOG.error({

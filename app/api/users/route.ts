@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { auth } from "@/auth"
-import client from "@/lib/mongodb"
+import dbConnect from "@/lib/mongodb"
+import User from '@/models/User'
 import { LOGGER } from "@/lib/utils"
 
 const LOG = LOGGER()
@@ -15,12 +16,10 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 		})
 	}
 
+	await dbConnect()
+
 	try {
-		const db = client.db("drive_find")
-		const users = await db
-			.collection("users")
-			.find({})
-			.toArray()
+		const users = await User.find({})
 
 			return new Response(JSON.stringify(users), {
 				status: 200,
