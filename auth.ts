@@ -6,6 +6,9 @@ import Google from "next-auth/providers/google"
 import type { NextAuthConfig } from "next-auth"
 import type { Provider } from "next-auth/providers"
 
+import User from '@/models/User'
+import dbConnect from "./lib/mongodb"
+
 const providers: Provider[] = [
   Google({
     clientId: process.env.GOOGLE_ID,
@@ -51,6 +54,21 @@ const config = {
       }
       return session
     },
+    async signIn({ user }) {
+      await dbConnect()
+
+      const existingUser = await User.findOne({ email: user.email })
+      if (!existingUser) {
+        // Add new user to MongoDB
+        await User.create({
+          email: user.email,
+          name: user.name,
+          image: user.image,
+        })
+      }
+
+      return true
+    }
   },
   pages: {
     signIn: '/login'
