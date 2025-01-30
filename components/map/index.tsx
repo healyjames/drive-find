@@ -44,6 +44,7 @@ export const Map = () => {
 
     const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
     const [lng, setLng] = useState<number>(mapDefaults.coordinates.lng)
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search)
