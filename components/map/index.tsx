@@ -47,6 +47,21 @@ export const Map = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await fetch('/api/posts')
+                const results = await response.json()
+
+                setPosts(results)
+            } catch(error) {
+                console.error('Failed to fetch posts from api.')
+            }
+        }
+
+        fetchPosts()
+    }, [])
+
+    useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search)
         setLat(Number(queryParams.get('lat')))
         setLng(Number(queryParams.get('lng')))
