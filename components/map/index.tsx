@@ -6,6 +6,7 @@ import { GoogleMap } from '@react-google-maps/api'
 
 import { LogoAnimation } from "@/components/loading/logo-animation"
 import { GoogleApiProvider as MapProvider } from "@/components/utils/google"
+import { IPost } from "@/models/Post"
 import googleMapWizardStyling from './wizard.json'
 
 interface MapTypeStyle {
@@ -44,7 +45,7 @@ export const Map = () => {
 
     const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
     const [lng, setLng] = useState<number>(mapDefaults.coordinates.lng)
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState<IPost[]>([])
 
     useEffect(() => {
         const fetchPosts = async () => {
