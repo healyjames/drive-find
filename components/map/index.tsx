@@ -50,7 +50,14 @@ export const Map = () => {
         const fetchPosts = async () => {
             try {
                 const response = await fetch('/api/posts')
+                if (!response.ok) {
+                    throw new Error('Network response fetching from /api/posts was not ok.');
+                }
+
                 const results = await response.json()
+                if(!results || results.length < 1) {
+                    console.log("no results");
+                }
 
                 setPosts(results)
             } catch(error) {
