@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 
-import { GoogleMap } from '@react-google-maps/api'
+import { GoogleMap, Marker } from '@react-google-maps/api'
 
 import { LogoAnimation } from "@/components/loading/logo-animation"
 import { GoogleApiProvider as MapProvider } from "@/components/utils/google"
@@ -46,6 +46,7 @@ export const Map = () => {
     const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
     const [lng, setLng] = useState<number>(mapDefaults.coordinates.lng)
     const [posts, setPosts] = useState<IPost[]>([])
+    const [postLoading, setPostLoading] = useState<boolean>(true)
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -61,6 +62,7 @@ export const Map = () => {
                 }
 
                 setPosts(results)
+                setPostLoading(false)
             } catch(error) {
                 console.error('Failed to fetch posts from api.')
             }
@@ -86,7 +88,11 @@ export const Map = () => {
                     }}
                     zoom={mapDefaults.zoom}
                     options={mapDefaults.options}
-                />
+                >
+                    {!postLoading && posts.map((post, index) => (
+                        <Marker key={index} position={{ lat: post.location.latitude, lng: post.location.longitude }} label={post.location.placeName} />
+                    ))}
+                </GoogleMap>
             </MapProvider>
         </React.Fragment>
     )
