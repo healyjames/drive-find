@@ -26,7 +26,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 			body: JSON.stringify(req.body)
 		})
 
-		return new Response(JSON.stringify({ error: `Error fetching data: ${err.message}`, details: e }), {
+		return new Response(JSON.stringify({ error: "Error fetching data", details: e }), {
 			status: 500,
 			headers: { "Content-Type": "application/json" },
 		})
