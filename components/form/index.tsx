@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useEffect, useState, useRef, useCallback, ChangeEvent } from "react"
+import React, { FormEvent, useCallback, useState } from 'react';
 import { useRouter } from "next/navigation"
 
-import { Autocomplete } from '@react-google-maps/api'
+// import { useMapsLibrary } from '../../../../src';
+// import { useAutocompleteSuggestions } from '../hooks/use-autocomplete-suggestions';
 
-import { GoogleApiProvider as AutocompleteProvider } from "@/components/utils/google"
 import { LogoAnimation } from "@/components/loading/logo-animation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
