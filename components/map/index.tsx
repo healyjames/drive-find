@@ -1,11 +1,10 @@
 'use client'
 
+import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
+
 import React, { useEffect, useState } from "react"
 
-import { GoogleMap } from '@react-google-maps/api'
-
-import { LogoAnimation } from "@/components/loading/logo-animation"
-import { GoogleApiProvider as MapProvider } from "@/components/utils/google"
+// import { LogoAnimation } from "@/components/loading/logo-animation"
 import googleMapWizardStyling from './wizard.json'
 
 interface MapTypeStyle {
@@ -37,8 +36,8 @@ const mapDefaults = {
     zoom: 14
 }
 
-const error = <p>Encountered error while loading google maps</p>
-const loading = <div className="w-screen h-screen flex justify-center items-center"><div><LogoAnimation /></div></div>
+// const error = <p>Encountered error while loading google maps</p>
+// const loading = <div className="w-screen h-screen flex justify-center items-center"><div><LogoAnimation /></div></div>
 
 export const Map = () => {
 
@@ -53,17 +52,18 @@ export const Map = () => {
 
     return (
         <React.Fragment>
-            <MapProvider error={error} loading={loading}>
+            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}>
                 <GoogleMap
-                    mapContainerStyle={mapDefaults.style}
-                    center={{
+                    style={{width: '100vw', height: '100vh'}}
+                    defaultCenter={{
                         lat: lat,
                         lng: lng
                     }}
-                    zoom={mapDefaults.zoom}
-                    options={mapDefaults.options}
+                    defaultZoom={mapDefaults.zoom}
+                    gestureHandling={'greedy'}
+                    disableDefaultUI={true}
                 />
-            </MapProvider>
+            </APIProvider>
         </React.Fragment>
     )
 }
