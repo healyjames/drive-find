@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react'
 import { useRouter } from "next/navigation"
 
 // import { useMapsLibrary } from '../../../../src';
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 
 interface FormProps {
     className: string
+    onPlaceSelect: (place: google.maps.places.Place | null) => void
 }
 
 const error = <p>error</p>
