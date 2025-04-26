@@ -6,7 +6,14 @@ import React, { FormEvent, useCallback, useState, useEffect } from 'react'
 import { useMapsLibrary } from '@vis.gl/react-google-maps'
 import { useAutocompleteSuggestions } from '@/hooks/use-autocomplete-suggestions'
 
-import { Input } from "@/components/ui/input"
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList
+} from "@/components/ui/command"
 
 interface FormProps {
     customClassName: string
@@ -22,6 +29,7 @@ export const Form = ({ customClassName }: FormProps) => {
 
     const handleInputChange = useCallback((event: FormEvent<HTMLInputElement>) => {
         setInputValue((event.target as HTMLInputElement).value)
+        console.log((event.target as HTMLInputElement).value)
     }, [])
 
     const handleSuggestionClick = useCallback(
@@ -49,32 +57,30 @@ export const Form = ({ customClassName }: FormProps) => {
     return (
         <React.Fragment>
             <form onSubmit={(e) => {e.preventDefault()}} className={`${customClassName} max-w-md w-full px-4`}>
-                <div className="mb-2">
-                    <Input 
-                        type="text"
-                        id="location"
-                        placeholder="Your location..."
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        className="w-full text-lg"
-                        required
-                    />
-                </div>
                 <div>
-                    {suggestions.length > 0 && (
-                        <ul className="custom-list">
-                        {suggestions.map((suggestion, index) => {
-                            return (
-                            <li
-                                key={index}
-                                className="custom-list-item"
-                                onClick={() => handleSuggestionClick(suggestion)}>
-                                {suggestion.placePrediction?.text.text}
-                            </li>
-                            );
-                        })}
-                        </ul>
-                    )}
+                    <Command className="rounded-lg border shadow-md md:min-w-[450px]">
+                        <CommandInput 
+                            id="location"
+                            placeholder="Your location..."
+                            onValueChange={setInputValue}
+                        />
+                        <CommandList>
+                            <CommandEmpty>No results found.</CommandEmpty>
+                            <CommandGroup heading="Suggestions">
+                                {suggestions.length > 0 && suggestions.map((suggestion, index) => {
+                                    return (
+                                        <CommandItem
+                                            key={index}
+                                            className="custom-list-item"
+                                            onClick={() => handleSuggestionClick(suggestion)}
+                                        >
+                                            {suggestion.placePrediction?.text.text}
+                                        </CommandItem>
+                                    )}
+                                )}
+                            </CommandGroup>
+                        </CommandList>
+                    </Command>
                 </div>
             </form>
         </React.Fragment>
