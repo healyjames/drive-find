@@ -27,11 +27,6 @@ export const Form = ({ customClassName }: FormProps) => {
     const [inputValue, setInputValue] = useState<string>('')
     const {suggestions, resetSession} = useAutocompleteSuggestions(inputValue)
 
-    const handleInputChange = useCallback((event: FormEvent<HTMLInputElement>) => {
-        setInputValue((event.target as HTMLInputElement).value)
-        console.log((event.target as HTMLInputElement).value)
-    }, [])
-
     const handleSuggestionClick = useCallback(
         async (suggestion: google.maps.places.AutocompleteSuggestion) => {
             if (!places) return
