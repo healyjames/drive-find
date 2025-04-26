@@ -1,10 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { Form } from "@/components/form"
 import { Footer } from "@/components/footer"
 import { Banner } from "@/components/banner"
 import { Header } from "@/components/header"
+import { FormWrapper as Form } from "@/components/form/wrapper"
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
             height={120}
           />
         </Link>
-        <Form className="self-center" />
+        <Form />
         <Footer />
       </div>
     </main>
