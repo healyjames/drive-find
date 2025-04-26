@@ -1,11 +1,11 @@
 'use client'
 
 import React, { FormEvent, useCallback, useState, useEffect } from 'react'
-// import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 import { useMapsLibrary } from '@vis.gl/react-google-maps'
-import { useAutocompleteSuggestions } from '@/hooks/use-autocomplete-suggestions'
 
+import { useAutocompleteSuggestions } from '@/hooks/use-autocomplete-suggestions'
 import {
     Command,
     CommandEmpty,
@@ -22,6 +22,7 @@ interface FormProps {
 export const Form = ({ customClassName }: FormProps) => {
 
     const places = useMapsLibrary('places')
+    const router = useRouter()
 
     const [selectedPlace, setSelectedPlace] = useState<google.maps.places.Place | null>(null)
     const [inputValue, setInputValue] = useState<string>('')
@@ -49,6 +50,12 @@ export const Form = ({ customClassName }: FormProps) => {
         }, [places, setSelectedPlace]
     )
 
+    useEffect(() => {
+        console.log(selectedPlace)
+        if (!selectedPlace?.location?.lat || !selectedPlace?.location?.lng) return
+        router.push(`/results?lat=${selectedPlace?.location?.lat()}&lng=${selectedPlace?.location?.lng()}`)
+    }, [selectedPlace])
+
     return (
         <React.Fragment>
             <form onSubmit={(e) => {e.preventDefault()}} className={`${customClassName} max-w-md w-full px-4`}>
@@ -68,7 +75,7 @@ export const Form = ({ customClassName }: FormProps) => {
                                             <CommandItem
                                                 key={index}
                                                 className="custom-list-item cursor-pointer"
-                                                onClick={() => handleSuggestionClick(suggestion)}
+                                                onSelect={() => handleSuggestionClick(suggestion)}
                                             >
                                                 {suggestion.placePrediction?.text.text}
                                             </CommandItem>
