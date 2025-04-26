@@ -64,22 +64,24 @@ export const Form = ({ customClassName }: FormProps) => {
                             placeholder="Your location..."
                             onValueChange={setInputValue}
                         />
-                        <CommandList>
-                            <CommandEmpty>No results found.</CommandEmpty>
-                            <CommandGroup heading="Suggestions">
-                                {suggestions.length > 0 && suggestions.map((suggestion, index) => {
-                                    return (
-                                        <CommandItem
-                                            key={index}
-                                            className="custom-list-item"
-                                            onClick={() => handleSuggestionClick(suggestion)}
-                                        >
-                                            {suggestion.placePrediction?.text.text}
-                                        </CommandItem>
+                        {suggestions.length > 0 && (
+                            <CommandList>
+                                <CommandEmpty>No results found.</CommandEmpty>
+                                <CommandGroup heading="Suggestions">
+                                    {suggestions.map((suggestion, index) => {
+                                        return (
+                                            <CommandItem
+                                                key={index}
+                                                className="custom-list-item cursor-pointer"
+                                                onClick={() => handleSuggestionClick(suggestion)}
+                                            >
+                                                {suggestion.placePrediction?.text.text}
+                                            </CommandItem>
+                                        )}
                                     )}
-                                )}
-                            </CommandGroup>
-                        </CommandList>
+                                </CommandGroup>
+                            </CommandList>
+                        )}
                     </Command>
                 </div>
             </form>

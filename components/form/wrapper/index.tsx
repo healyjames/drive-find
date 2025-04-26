@@ -13,7 +13,7 @@ const loading = () => { return <div className="flex justify-center items-center"
 export const FormWrapper = () => {
     return (
         <APIProvider apiKey={API_KEY} version={'beta'} onError={error} onLoad={loading}>
-            <Form customClassName="self-center" />
+            <Form customClassName="self-start mt-10" />
         </APIProvider>
     )
 }
