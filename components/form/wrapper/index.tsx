@@ -5,7 +5,7 @@ import { APIProvider } from "@vis.gl/react-google-maps"
 import { LogoAnimation } from "@/components/loading/logo-animation"
 import { Form } from ".."
 
-const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
+const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API
 
 const error = () => { return <p>error</p> }
 const loading = () => { return <div className="flex justify-center items-center"><div><LogoAnimation /></div></div> }
