@@ -5,7 +5,9 @@ import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 import React, { useEffect, useState } from "react"
 
 // import { LogoAnimation } from "@/components/loading/logo-animation"
-import googleMapWizardStyling from './wizard.json'
+import googleMapWizardStyling from './wizard'
+
+const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 
 interface MapTypeStyle {
     elementType?: string | null
@@ -13,7 +15,7 @@ interface MapTypeStyle {
     stylers: object[]
 }
 
-const mapStyle: MapTypeStyle[] = googleMapWizardStyling as MapTypeStyle[]
+const mapStyle: MapTypeStyle[] = googleMapWizardStyling
 
 const mapDefaults = {
     coordinates: {
@@ -36,9 +38,6 @@ const mapDefaults = {
     zoom: 14
 }
 
-// const error = <p>Encountered error while loading google maps</p>
-// const loading = <div className="w-screen h-screen flex justify-center items-center"><div><LogoAnimation /></div></div>
-
 export const Map = () => {
 
     const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
@@ -52,9 +51,10 @@ export const Map = () => {
 
     return (
         <React.Fragment>
-            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}>
+            <APIProvider apiKey={API_KEY}>
                 <GoogleMap
                     style={{width: '100vw', height: '100vh'}}
+                    styles={mapStyle}
                     defaultCenter={{
                         lat: lat,
                         lng: lng
