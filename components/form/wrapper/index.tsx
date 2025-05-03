@@ -3,7 +3,7 @@
 import { APIProvider } from "@vis.gl/react-google-maps"
 
 import { LogoAnimation } from "@/components/loading/logo-animation"
-import { Form } from "../index"
+import { Form } from ".."
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 
