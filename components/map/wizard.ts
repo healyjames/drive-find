@@ -1,4 +1,4 @@
-[
+export default [
   {
       "featureType": "administrative",
       "elementType": "geometry.fill",
@@ -290,4 +290,4 @@
           }
       ]
   }
-]
+] as google.maps.MapTypeStyle[]

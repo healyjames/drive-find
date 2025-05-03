@@ -1,12 +1,13 @@
 'use client'
 
+import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
+
 import React, { useEffect, useState } from "react"
 
-import { GoogleMap } from '@react-google-maps/api'
+// import { LogoAnimation } from "@/components/loading/logo-animation"
+import googleMapWizardStyling from './wizard'
 
-import { LogoAnimation } from "@/components/loading/logo-animation"
-import { GoogleApiProvider as MapProvider } from "@/components/utils/google"
-import googleMapWizardStyling from './wizard.json'
+const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 
 interface MapTypeStyle {
     elementType?: string | null
@@ -14,7 +15,7 @@ interface MapTypeStyle {
     stylers: object[]
 }
 
-const mapStyle: MapTypeStyle[] = googleMapWizardStyling as MapTypeStyle[]
+const mapStyle: MapTypeStyle[] = googleMapWizardStyling
 
 const mapDefaults = {
     coordinates: {
@@ -37,9 +38,6 @@ const mapDefaults = {
     zoom: 14
 }
 
-const error = <p>Encountered error while loading google maps</p>
-const loading = <div className="w-screen h-screen flex justify-center items-center"><div><LogoAnimation /></div></div>
-
 export const Map = () => {
 
     const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
@@ -53,17 +51,19 @@ export const Map = () => {
 
     return (
         <React.Fragment>
-            <MapProvider error={error} loading={loading}>
+            <APIProvider apiKey={API_KEY}>
                 <GoogleMap
-                    mapContainerStyle={mapDefaults.style}
-                    center={{
+                    style={{width: '100vw', height: '100vh'}}
+                    styles={mapStyle}
+                    defaultCenter={{
                         lat: lat,
                         lng: lng
                     }}
-                    zoom={mapDefaults.zoom}
-                    options={mapDefaults.options}
+                    defaultZoom={mapDefaults.zoom}
+                    gestureHandling={'greedy'}
+                    disableDefaultUI={true}
                 />
-            </MapProvider>
+            </APIProvider>
         </React.Fragment>
     )
 }
