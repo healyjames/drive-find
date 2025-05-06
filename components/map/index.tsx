@@ -4,7 +4,6 @@ import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 
 import React, { useEffect, useState } from "react"
 
-import { LogoAnimation } from "@/components/loading/logo-animation"
 import { Progress } from "@/components/ui/progress"
 import { IPost } from "@/models/Post"
 import googleMapWizardStyling from './wizard'
