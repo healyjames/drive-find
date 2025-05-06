@@ -4,7 +4,8 @@ import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 
 import React, { useEffect, useState } from "react"
 
-// import { LogoAnimation } from "@/components/loading/logo-animation"
+import { LogoAnimation } from "@/components/loading/logo-animation"
+import { Progress } from "@/components/ui/progress"
 import { IPost } from "@/models/Post"
 import googleMapWizardStyling from './wizard'
 
@@ -14,6 +15,11 @@ interface MapTypeStyle {
     elementType?: string | null
     featureType?: string | null
     stylers: object[]
+}
+
+interface ProgressBarProps {
+    progress: number
+    message?: string
 }
 
 const mapStyle: MapTypeStyle[] = googleMapWizardStyling
@@ -37,6 +43,19 @@ const mapDefaults = {
         height: '100vh'
     },
     zoom: 14
+}
+
+const ProgressBar = ({ progress, message }: ProgressBarProps) => {
+    return (
+        <div className="fixed top-0 left-0 w-full z-100 p-2 h-screen w-screen bg-white bg-opacity-60">
+            <div className="flex flex-row min-h-screen justify-center items-center">
+                <div>
+                {message && (<p className="text-xs text-primary-dark mb-1">{message}</p>)}
+                <Progress value={progress} className="max-w-[120px]" />
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export const Map = () => {
@@ -101,7 +120,20 @@ export const Map = () => {
                     defaultZoom={mapDefaults.zoom}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}
-                />
+                >
+                    {postLoading ? (
+                        <ProgressBar message="Fetching data..." progress={progress} />
+                    ) : (
+                        posts.map((post, index) => (
+                            // <CustomMarker
+                            //     key={index}
+                            //     lat={post.location.latitude}
+                            //     lng={post.location.longitude}
+                            //     name={post.location.placeName}
+                            // />
+                        ))
+                    )}
+                </GoogleMap>
             </APIProvider>
         </React.Fragment>
     )
