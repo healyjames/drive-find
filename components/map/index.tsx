@@ -5,6 +5,7 @@ import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps';
 import React, { useEffect, useState } from "react"
 
 // import { LogoAnimation } from "@/components/loading/logo-animation"
+import { IPost } from "@/models/Post"
 import googleMapWizardStyling from './wizard'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
