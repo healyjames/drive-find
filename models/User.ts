@@ -12,6 +12,7 @@ const UserSchema: Schema<IUser> = new Schema({
   image: { type: String },
 })
 
-const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema)
+const User: Model<IUser> =
+  mongoose.models.User || mongoose.model<IUser>('User', UserSchema)
 
 export default User

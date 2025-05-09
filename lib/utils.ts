@@ -1,5 +1,5 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 interface LOG {
   tags: string
@@ -31,7 +31,7 @@ export const LOGGER = () => {
         message: message,
         path: path,
         body: JSON.stringify(body) || 'unknown',
-        error: error?.stack
+        error: error?.stack,
       })
     },
     success: ({ tags, message }: LOG) => {
