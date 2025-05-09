@@ -25,3 +25,8 @@ Run the production build with:
 ```bash
 npm run start
 ```
+
+## Run prettier linting
+```bash
+npx eslint . --ext .tsx --fix
+```

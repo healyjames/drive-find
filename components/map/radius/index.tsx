@@ -1,5 +1,3 @@
 export const Radius = () => {
-    return(
-        <p>Ahh</p>
-    )
+  return <p>Ahh</p>
 }

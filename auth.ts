@@ -1,13 +1,13 @@
-import NextAuth from "next-auth"
-import "next-auth/jwt"
+import NextAuth from 'next-auth'
+import 'next-auth/jwt'
 
-import GitHub from "next-auth/providers/github"
-import Google from "next-auth/providers/google"
-import type { NextAuthConfig } from "next-auth"
-import type { Provider } from "next-auth/providers"
+import GitHub from 'next-auth/providers/github'
+import Google from 'next-auth/providers/google'
+import type { NextAuthConfig } from 'next-auth'
+import type { Provider } from 'next-auth/providers'
 
 import User from '@/models/User'
-import dbConnect from "./lib/mongodb"
+import dbConnect from './lib/mongodb'
 
 const providers: Provider[] = [
   Google({
@@ -17,11 +17,11 @@ const providers: Provider[] = [
   GitHub({
     clientId: process.env.GITHUB_ID,
     clientSecret: process.env.GITHUB_SECRET,
-  })
+  }),
 ]
 
 export const providerMap = providers.map((provider) => {
-  if (typeof provider === "function") {
+  if (typeof provider === 'function') {
     const providerData = provider()
     return { id: providerData.id, name: providerData.name }
   } else {
@@ -30,15 +30,15 @@ export const providerMap = providers.map((provider) => {
 })
 
 const config = {
-  theme: { logo: "/images/auth-logo.png" },
+  theme: { logo: '/images/auth-logo.png' },
   providers: providers,
-  basePath: "/auth",
+  basePath: '/auth',
   callbacks: {
     authorized() {
       return true
     },
     jwt({ token, account, trigger, session, profile }) {
-      if (trigger === "update") token.name = session.user.name
+      if (trigger === 'update') token.name = session.user.name
       if (account) {
         token.accessToken = account.access_token
         token.id = profile?.id || profile?.sub
@@ -46,10 +46,10 @@ const config = {
       return token
     },
     async session({ session, token }) {
-      if(token?.accessToken) {
+      if (token?.accessToken) {
         session.accessToken = token.accessToken
       }
-      if(token?.id) {
+      if (token?.id) {
         session.id = token.id
       }
       return session
@@ -68,27 +68,27 @@ const config = {
       }
 
       return true
-    }
+    },
   },
   pages: {
-    signIn: '/login'
+    signIn: '/login',
   },
   experimental: {
     enableWebAuthn: true,
   },
-  debug: process.env.ENV !== "prod" ? true : false,
+  debug: process.env.ENV !== 'prod' ? true : false,
 } satisfies NextAuthConfig
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config)
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     accessToken?: string
     id?: {}
   }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   interface JWT {
     accessToken?: string
   }
