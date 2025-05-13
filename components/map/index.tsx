@@ -10,6 +10,7 @@ import googleMapWizardStyling from './wizard'
 import { CustomAdvancedMarker } from './custom-advanced-marker'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
+const MAP_ID: string = process.env.NEXT_PUBLIC_MAP_ID
 
 interface MapTypeStyle {
   elementType?: string | null
@@ -113,6 +114,7 @@ export const Map = () => {
     <React.Fragment>
       <APIProvider apiKey={API_KEY}>
         <GoogleMap
+          mapId={MAP_ID}
           style={{ width: '100vw', height: '100vh' }}
           styles={mapStyle}
           defaultCenter={{
