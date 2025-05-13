@@ -6,24 +6,15 @@ import React, { useEffect, useState } from 'react'
 
 import { Progress } from '@/components/ui/progress'
 import { IPost } from '@/models/Post'
-import googleMapWizardStyling from './wizard'
 import { CustomAdvancedMarker } from './custom-advanced-marker'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 const MAP_ID: string = process.env.NEXT_PUBLIC_MAP_ID
 
-interface MapTypeStyle {
-  elementType?: string | null
-  featureType?: string | null
-  stylers: object[]
-}
-
 interface ProgressBarProps {
   progress: number
   message?: string
 }
-
-const mapStyle: MapTypeStyle[] = googleMapWizardStyling
 
 const mapDefaults = {
   coordinates: {
@@ -36,8 +27,7 @@ const mapDefaults = {
     gestureHandling: 'auto',
     mapTypeId: 'roadmap',
     disableDefaultUI: true,
-    keyboardShortcuts: false,
-    styles: mapStyle,
+    keyboardShortcuts: false
   },
   style: {
     width: '100%',
@@ -116,7 +106,6 @@ export const Map = () => {
         <GoogleMap
           mapId={MAP_ID}
           style={{ width: '100vw', height: '100vh' }}
-          styles={mapStyle}
           defaultCenter={{
             lat: lat,
             lng: lng,
