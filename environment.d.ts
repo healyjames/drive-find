@@ -1,7 +1,7 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      NEXT_PUBLIC_MAP_ID: string
+      NEXT_PUBLIC_GOOGLE_MAP_ID: string
       NEXT_PUBLIC_GOOGLE_MAP_API: string
       NEXT_PUBLIC_GOOGLE_PLACES_API: string
       ENV: string

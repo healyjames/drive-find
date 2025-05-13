@@ -9,7 +9,7 @@ import { IPost } from '@/models/Post'
 import { CustomAdvancedMarker } from './custom-advanced-marker'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
-const MAP_ID: string = process.env.NEXT_PUBLIC_MAP_ID
+const MAP_ID: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID
 
 interface ProgressBarProps {
   progress: number
