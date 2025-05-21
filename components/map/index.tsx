@@ -1,10 +1,12 @@
 'use client'
 
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
+import { AlertCircle } from 'lucide-react'
 
 import React, { useEffect, useState } from 'react'
 
 import { Progress } from '@/components/ui/progress'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { IPost } from '@/models/Post'
 import { CustomAdvancedMarker } from './custom-advanced-marker'
 
@@ -27,7 +29,7 @@ const mapDefaults = {
     gestureHandling: 'auto',
     mapTypeId: 'roadmap',
     disableDefaultUI: true,
-    keyboardShortcuts: false
+    keyboardShortcuts: false,
   },
   style: {
     width: '100%',
@@ -57,6 +59,7 @@ export const Map = () => {
   const [posts, setPosts] = useState<IPost[]>([])
   const [postLoading, setPostLoading] = useState<boolean>(true)
   const [progress, setProgress] = useState<number>(0)
+  const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
     let interval: NodeJS.Timeout
@@ -84,7 +87,8 @@ export const Map = () => {
         setProgress(100)
         setPostLoading(false)
       } catch (error) {
-        console.error('Failed to fetch posts from api.')
+        setError(true)
+        console.error(error)
       } finally {
         clearInterval(interval)
         setTimeout(() => setProgress(0), 500)
@@ -114,15 +118,31 @@ export const Map = () => {
           gestureHandling={'greedy'}
           disableDefaultUI={true}
         >
-          {postLoading ? (
+          {postLoading && !error ? (
             <ProgressBar message="Fetching data..." progress={progress} />
           ) : (
             posts.map((post, index) => (
               <CustomAdvancedMarker key={index} post={post} />
             ))
           )}
+
+          {error && <MapErrorAlert />}
         </GoogleMap>
       </APIProvider>
     </React.Fragment>
+  )
+}
+
+const MapErrorAlert = () => {
+  return (
+    <div className="fixed top-0 left-0 z-100 p-2 h-screen w-screen flex flex-row justify-center items-center bg-white bg-opacity-60">
+      <Alert variant="destructive" className="w-64 bg-white">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>
+          Failed to load map data. Please try again later.
+        </AlertDescription>
+      </Alert>
+    </div>
   )
 }
