@@ -1,6 +1,6 @@
 import React, { Ref, useCallback, useEffect } from 'react'
 import Supercluster, { ClusterProperties } from 'supercluster'
-import { FeaturesClusterMarker } from '../feature'
+import { FeaturesClusterMarker } from '../cluster-marker'
 import { FeatureMarker } from '../marker'
 import { useSupercluster } from '@/hooks/use-supercluster'
 import { Feature, FeatureCollection, GeoJsonProperties, Point } from 'geojson'
