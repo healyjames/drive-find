@@ -5,10 +5,10 @@ import { AlertCircle } from 'lucide-react'
 
 import React, { useEffect, useState } from 'react'
 
+import { ClusteredMarkers } from './cluster'
 import { Progress } from '@/components/ui/progress'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { IPost } from '@/models/Post'
-import { CustomAdvancedMarker } from './custom-advanced-marker'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 const MAP_ID: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID
@@ -121,10 +121,14 @@ export const Map = () => {
           {postLoading && !error ? (
             <ProgressBar message="Fetching data..." progress={progress} />
           ) : (
-            posts.map((post, index) => (
-              <CustomAdvancedMarker key={index} post={post} />
-            ))
-          )}
+            
+              <ClusteredMarkers
+                geojson={post}
+                setNumClusters={setNumClusters}
+                setInfowindowData={setInfowindowData}
+              />
+            )
+          }
 
           {error && <MapErrorAlert />}
         </GoogleMap>
