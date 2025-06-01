@@ -8,12 +8,6 @@ import { Feature, FeatureCollection, GeoJsonProperties, Point } from 'geojson'
 type ClusteredMarkersProps = {
   geojson: FeatureCollection<Point>
   setNumClusters: (n: number) => void
-  setInfowindowData: (
-    data: {
-      anchor: google.maps.marker.AdvancedMarkerElement
-      features: Feature<Point>[]
-    } | null,
-  ) => void
 }
 
 const superclusterOptions: Supercluster.Options<
@@ -27,8 +21,7 @@ const superclusterOptions: Supercluster.Options<
 
 export const ClusteredMarkers = ({
   geojson,
-  setNumClusters,
-  setInfowindowData,
+  setNumClusters
 }: ClusteredMarkersProps) => {
   const { clusters, getLeaves } = useSupercluster(geojson, superclusterOptions)
 
@@ -39,10 +32,8 @@ export const ClusteredMarkers = ({
   const handleClusterClick = useCallback(
     (marker: google.maps.marker.AdvancedMarkerElement, clusterId: number) => {
       const leaves = getLeaves(clusterId)
-
-      setInfowindowData({ anchor: marker, features: leaves })
     },
-    [getLeaves, setInfowindowData],
+    [getLeaves],
   )
 
   const handleMarkerClick = useCallback(
@@ -50,10 +41,8 @@ export const ClusteredMarkers = ({
       const feature = clusters.find(
         (feat) => feat.id === featureId,
       ) as Feature<Point>
-
-      setInfowindowData({ anchor: marker, features: [feature] })
     },
-    [clusters, setInfowindowData],
+    [clusters],
   )
 
   return (
