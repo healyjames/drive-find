@@ -9,6 +9,7 @@ import { ClusteredMarkers } from './cluster'
 import { Progress } from '@/components/ui/progress'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { IPost } from '@/models/Post'
+import { FeatureCollection, Point } from 'geojson'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 const MAP_ID: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID
@@ -56,7 +57,8 @@ const ProgressBar = ({ progress, message }: ProgressBarProps) => {
 export const Map = () => {
   const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
   const [lng, setLng] = useState<number>(mapDefaults.coordinates.lng)
-  const [posts, setPosts] = useState<IPost[]>([])
+  const [posts, setPosts] = useState<FeatureCollection<Point, IPost> | null>(null)
+  const [numClusters, setNumClusters] = useState(0)
   const [postLoading, setPostLoading] = useState<boolean>(true)
   const [progress, setProgress] = useState<number>(0)
   const [error, setError] = useState<boolean>(false)
@@ -121,13 +123,12 @@ export const Map = () => {
           {postLoading && !error ? (
             <ProgressBar message="Fetching data..." progress={progress} />
           ) : (
-            
+            posts && (
               <ClusteredMarkers
-                geojson={post}
+                geojson={posts}
                 setNumClusters={setNumClusters}
-                setInfowindowData={setInfowindowData}
               />
-            )
+            ))
           }
 
           {error && <MapErrorAlert />}
