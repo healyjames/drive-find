@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import dbConnect from '@/lib/mongodb'
 import User from '@/models/User'
@@ -6,7 +6,7 @@ import { LOGGER } from '@/lib/utils'
 
 const LOG = LOGGER()
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   const session = await auth()
 
   if (!session) {

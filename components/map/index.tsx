@@ -1,21 +1,23 @@
 'use client'
 
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
+import { AlertCircle } from 'lucide-react'
 
 import React, { useEffect, useState } from 'react'
 
-// import { LogoAnimation } from "@/components/loading/logo-animation"
-import googleMapWizardStyling from './wizard'
+import { ClusteredMarkers } from './cluster'
+import { Progress } from '@/components/ui/progress'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { IPost } from '@/models/Post'
+import { FeatureCollection, Point } from 'geojson'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
+const MAP_ID: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID
 
-interface MapTypeStyle {
-  elementType?: string | null
-  featureType?: string | null
-  stylers: object[]
+interface ProgressBarProps {
+  progress: number
+  message?: string
 }
-
-const mapStyle: MapTypeStyle[] = googleMapWizardStyling
 
 const mapDefaults = {
   coordinates: {
@@ -29,7 +31,6 @@ const mapDefaults = {
     mapTypeId: 'roadmap',
     disableDefaultUI: true,
     keyboardShortcuts: false,
-    styles: mapStyle,
   },
   style: {
     width: '100%',
@@ -38,9 +39,66 @@ const mapDefaults = {
   zoom: 14,
 }
 
+const ProgressBar = ({ progress, message }: ProgressBarProps) => {
+  return (
+    <div className="fixed top-0 left-0 w-full z-100 p-2 h-screen w-screen bg-white bg-opacity-60">
+      <div className="flex flex-row min-h-screen justify-center items-center">
+        <div>
+          {message && (
+            <p className="text-xs text-primary-dark mb-1">{message}</p>
+          )}
+          <Progress value={progress} className="max-w-[120px]" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export const Map = () => {
   const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
   const [lng, setLng] = useState<number>(mapDefaults.coordinates.lng)
+  const [posts, setPosts] = useState<FeatureCollection<Point, IPost> | null>(null)
+  const [numClusters, setNumClusters] = useState(0)
+  const [postLoading, setPostLoading] = useState<boolean>(true)
+  const [progress, setProgress] = useState<number>(0)
+  const [error, setError] = useState<boolean>(false)
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    setProgress(10)
+
+    const fetchPosts = async () => {
+      interval = setInterval(() => {
+        setProgress((prev) => (prev < 90 ? prev + 10 : prev))
+      }, 200)
+
+      try {
+        const response = await fetch('/api/posts')
+        if (!response.ok) {
+          throw new Error(
+            'Network response fetching from /api/posts was not ok.',
+          )
+        }
+
+        const results = await response.json()
+        if (!results || results.length < 1) {
+          console.log('no results')
+        }
+
+        setPosts(results)
+        setProgress(100)
+        setPostLoading(false)
+      } catch (error) {
+        setError(true)
+        console.error(error)
+      } finally {
+        clearInterval(interval)
+        setTimeout(() => setProgress(0), 500)
+      }
+    }
+
+    fetchPosts()
+  }, [])
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -52,8 +110,8 @@ export const Map = () => {
     <React.Fragment>
       <APIProvider apiKey={API_KEY}>
         <GoogleMap
+          mapId={MAP_ID}
           style={{ width: '100vw', height: '100vh' }}
-          styles={mapStyle}
           defaultCenter={{
             lat: lat,
             lng: lng,
@@ -61,8 +119,35 @@ export const Map = () => {
           defaultZoom={mapDefaults.zoom}
           gestureHandling={'greedy'}
           disableDefaultUI={true}
-        />
+        >
+          {postLoading && !error ? (
+            <ProgressBar message="Fetching data..." progress={progress} />
+          ) : (
+            posts && (
+              <ClusteredMarkers
+                geojson={posts}
+                setNumClusters={setNumClusters}
+              />
+            ))
+          }
+
+          {error && <MapErrorAlert />}
+        </GoogleMap>
       </APIProvider>
     </React.Fragment>
+  )
+}
+
+const MapErrorAlert = () => {
+  return (
+    <div className="fixed top-0 left-0 z-100 p-2 h-screen w-screen flex flex-row justify-center items-center bg-white bg-opacity-60">
+      <Alert variant="destructive" className="w-64 bg-white">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>
+          Failed to load map data. Please try again later.
+        </AlertDescription>
+      </Alert>
+    </div>
   )
 }
