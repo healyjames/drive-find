@@ -26,7 +26,7 @@ export const Header = async (props: HeaderProps) => {
 
   return (
     <div
-      className={`${props.outerClass || ''} top-0 left-0 w-full z-10 flex justify-between items-center h-20 bg-primary-base shadow`}
+      className={`${props.outerClass || ''} top-0 left-0 w-full z-10 flex justify-between items-center h-20 bg-primary-base shadow px-4`}
     >
       <Menu />
       {!props.removeLogo && (
