@@ -1,34 +1,24 @@
+// components/Map.tsx
 'use client'
 
+import { usePosts } from '@/hooks/use-post'
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
-import { AlertCircle } from 'lucide-react'
-import React, { useState } from 'react'
-
-import { usePostContext } from '@/components/posts/provider'
 import { ClusteredMarkers } from './cluster'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import LoadingSpinner from '../loading/spinner'
-
-const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API as string
-const MAP_ID: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID as string
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
+import { AlertCircle } from 'lucide-react'
 
 const mapDefaults = {
-  coordinates: { lat: 53.18136494812854, lng: -2.6165447846574437 },
-  options: {
-    zoomControl: false,
-    tilt: 0,
-    gestureHandling: 'auto',
-    mapTypeId: 'roadmap',
-    disableDefaultUI: true,
-    keyboardShortcuts: false,
-  },
+  coordinates: { lat: 53.1813, lng: -2.6165 },
   style: { width: '100%', height: 'calc(100vh - 80px)' },
   zoom: 14,
 }
 
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API!
+const MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID!
+
 export const Map = () => {
-  const { posts, loading, error } = usePostContext()
-  const [numClusters, setNumClusters] = useState(0)
+  const { posts, loading, error } = usePosts()
 
   return (
     <APIProvider apiKey={API_KEY}>
@@ -40,15 +30,11 @@ export const Map = () => {
         gestureHandling="greedy"
         disableDefaultUI
       >
-        {loading && !error ? (
-          <LoadingSpinner />
-        ) : (
-          posts && (
-            <ClusteredMarkers geojson={posts} setNumClusters={setNumClusters} />
-          )
-        )}
-
+        {loading && !error && <LoadingSpinner />}
         {error && <MapErrorAlert />}
+        {posts && (
+          <ClusteredMarkers geojson={posts} setNumClusters={() => {}} />
+        )}
       </GoogleMap>
     </APIProvider>
   )
