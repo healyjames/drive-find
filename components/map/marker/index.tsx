@@ -4,26 +4,23 @@ import {
   AdvancedMarkerAnchorPoint,
   useAdvancedMarkerRef,
 } from '@vis.gl/react-google-maps'
+import { Feature, Point } from 'geojson'
+import { IPost } from '@/models/Post'
 
 type TreeMarkerProps = {
   position: google.maps.LatLngLiteral
-  featureId: string
-  onMarkerClick?: (
-    marker: google.maps.marker.AdvancedMarkerElement,
-    featureId: string,
-  ) => void
+  feature: Feature<Point, IPost>
 }
 
 export const FeatureMarker = ({
   position,
-  featureId,
-  onMarkerClick,
+  feature,
 }: TreeMarkerProps) => {
   const [markerRef, marker] = useAdvancedMarkerRef()
-  const handleClick = useCallback(
-    () => onMarkerClick && onMarkerClick(marker!, featureId),
-    [onMarkerClick, marker, featureId],
-  )
+
+  const handleClick = () => {
+    console.log('Marker clicked:', feature.properties.title)
+  }
 
   return (
     <AdvancedMarker
