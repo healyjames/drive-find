@@ -57,7 +57,7 @@ export const ClusteredMarkers = ({
 
   return (
     <>
-      {clusters.map((feature) => {
+      {clusters.map((feature, index) => {
         const [lng, lat] = feature.geometry.coordinates
 
         const clusterProperties = feature.properties as ClusterProperties
@@ -65,7 +65,7 @@ export const ClusteredMarkers = ({
 
         return isCluster ? (
           <FeaturesClusterMarker
-            key={feature.id}
+            key={`cluster-${index}`}
             clusterId={clusterProperties.cluster_id}
             position={{ lat, lng }}
             size={clusterProperties.point_count}
@@ -74,7 +74,7 @@ export const ClusteredMarkers = ({
           />
         ) : (
           <FeatureMarker
-            key={feature.id}
+            key={`feature-${index}`}
             featureId={feature.id as string}
             position={{ lat, lng }}
             onMarkerClick={handleMarkerClick}
