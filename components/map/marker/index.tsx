@@ -31,7 +31,7 @@ export const FeatureMarker = ({ position, feature }: TreeMarkerProps) => {
 
   return (
     <>
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+      <Sheet modal={false} open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>
           <AdvancedMarker
             ref={markerRef}
@@ -43,7 +43,11 @@ export const FeatureMarker = ({ position, feature }: TreeMarkerProps) => {
             <div className="h-4 w-full bg-[#000] rounded-[50%] opacity-20 -mt-1"></div>
           </AdvancedMarker>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent
+          onInteractOutside={(event) => {
+            event.preventDefault()
+          }}
+        >
           <SheetHeader>
             <SheetTitle>Feature Details</SheetTitle>
             <SheetDescription>
