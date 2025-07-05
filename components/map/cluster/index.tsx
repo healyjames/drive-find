@@ -1,5 +1,6 @@
 import React, { Ref, useCallback, useEffect } from 'react'
 import Supercluster, { ClusterProperties } from 'supercluster'
+import { useMap } from '@vis.gl/react-google-maps'
 import { FeaturesClusterMarker } from '../cluster-marker'
 import { FeatureMarker } from '../marker'
 import { useSupercluster } from '@/hooks/use-supercluster'
@@ -23,7 +24,8 @@ export const ClusteredMarkers = ({
   geojson,
   setNumClusters
 }: ClusteredMarkersProps) => {
-  const { clusters, getLeaves } = useSupercluster(geojson, superclusterOptions)
+  const map = useMap()
+  const { clusters, getClusterExpansionZoom } = useSupercluster(geojson, superclusterOptions)
 
   useEffect(() => {
     setNumClusters(clusters.length)
@@ -31,9 +33,17 @@ export const ClusteredMarkers = ({
 
   const handleClusterClick = useCallback(
     (marker: google.maps.marker.AdvancedMarkerElement, clusterId: number) => {
-      const leaves = getLeaves(clusterId)
+      if (!map) return;
+
+      const expansionZoom = getClusterExpansionZoom(clusterId)
+      const cluster = clusters.find(c => c.id === clusterId)
+
+      if (expansionZoom && cluster) {
+        map.setZoom(expansionZoom);
+        map.panTo({lat: cluster.geometry.coordinates[1], lng: cluster.geometry.coordinates[0]})
+      }
     },
-    [getLeaves],
+    [map, clusters, getClusterExpansionZoom],
   )
 
   const handleMarkerClick = useCallback(
