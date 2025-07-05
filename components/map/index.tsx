@@ -6,18 +6,13 @@ import { AlertCircle } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 import { ClusteredMarkers } from './cluster'
-import { Progress } from '@/components/ui/progress'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { IPost } from '@/models/Post'
 import { FeatureCollection, Point } from 'geojson'
+import LoadingSpinner from '../loading/spinner'
 
 const API_KEY: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API
 const MAP_ID: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID
-
-interface ProgressBarProps {
-  progress: number
-  message?: string
-}
 
 const mapDefaults = {
   coordinates: {
@@ -39,39 +34,17 @@ const mapDefaults = {
   zoom: 14,
 }
 
-const ProgressBar = ({ progress, message }: ProgressBarProps) => {
-  return (
-    <div className="fixed top-0 left-0 w-full z-100 p-2 h-screen w-screen bg-white bg-opacity-60">
-      <div className="flex flex-row min-h-screen justify-center items-center">
-        <div>
-          {message && (
-            <p className="text-xs text-primary-dark mb-1">{message}</p>
-          )}
-          <Progress value={progress} className="max-w-[120px]" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export const Map = () => {
   const [lat, setLat] = useState<number>(mapDefaults.coordinates.lat)
   const [lng, setLng] = useState<number>(mapDefaults.coordinates.lng)
   const [posts, setPosts] = useState<FeatureCollection<Point, IPost> | null>(null)
   const [numClusters, setNumClusters] = useState(0)
-  const [postLoading, setPostLoading] = useState<boolean>(true)
-  const [progress, setProgress] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
-    let interval: NodeJS.Timeout
-    setProgress(10)
-
     const fetchPosts = async () => {
-      interval = setInterval(() => {
-        setProgress((prev) => (prev < 90 ? prev + 10 : prev))
-      }, 200)
-
+      setLoading(true)
       try {
         const response = await fetch('/api/posts')
         if (!response.ok) {
@@ -86,14 +59,11 @@ export const Map = () => {
         }
 
         setPosts(results)
-        setProgress(100)
-        setPostLoading(false)
+        setLoading(false)
       } catch (error) {
         setError(true)
         console.error(error)
-      } finally {
-        clearInterval(interval)
-        setTimeout(() => setProgress(0), 500)
+        setLoading(false)
       }
     }
 
@@ -120,8 +90,8 @@ export const Map = () => {
           gestureHandling={'greedy'}
           disableDefaultUI={true}
         >
-          {postLoading && !error ? (
-            <ProgressBar message="Fetching data..." progress={progress} />
+          {loading && !error ? (
+            <LoadingSpinner />
           ) : (
             posts && (
               <ClusteredMarkers
