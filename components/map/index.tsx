@@ -81,7 +81,7 @@ export const Map = () => {
       <APIProvider apiKey={API_KEY}>
         <GoogleMap
           mapId={MAP_ID}
-          style={{ width: '100vw', height: '100vh' }}
+          style={{ width: '100vw', height: 'calc(100vh - 80px)' }}
           defaultCenter={{
             lat: lat,
             lng: lng,
@@ -98,8 +98,8 @@ export const Map = () => {
                 geojson={posts}
                 setNumClusters={setNumClusters}
               />
-            ))
-          }
+            )
+          )}
 
           {error && <MapErrorAlert />}
         </GoogleMap>

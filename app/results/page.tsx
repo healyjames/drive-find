@@ -3,8 +3,8 @@ import { Header } from '@/components/header'
 
 export default function Results() {
   return (
-    <div>
-      <Header outerClass="absolute" />
+    <div className="flex flex-col">
+      <Header />
       <Map />
     </div>
   )
