@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 export const PostDetails = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const dummyPost = {
     title: 'Beautiful Countryside Cabin',
