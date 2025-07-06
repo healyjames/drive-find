@@ -7,23 +7,19 @@ import {
   SheetTitle,
   SheetDescription,
 } from '@/components/ui/sheet'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { usePostContext } from '@/components/posts/provider'
 
 export const PostDetails = () => {
-  const [open, setOpen] = useState(false)
+  const { selectedPost, openSheet, setOpenSheet } = usePostContext()
 
-  const dummyPost = {
-    title: 'Beautiful Countryside Cabin',
-    description:
-      'A cozy and remote cabin surrounded by trees and nature. Ideal for writers, artists, or anyone seeking inspiration.',
-    location: 'Snowdonia, Wales',
-    date: 'July 4, 2025',
-    postedBy: 'Jane Doe',
-  }
+  useEffect(() => {
+    console.log(openSheet)
+  }, [openSheet])
 
   return (
-    <Sheet modal={false} open={open} onOpenChange={setOpen}>
+    <Sheet modal={false} open={openSheet} onOpenChange={setOpenSheet}>
       <SheetContent
         side="right"
         className="w-[400px] border-l bg-primary-dark shadow-lg"
@@ -31,19 +27,19 @@ export const PostDetails = () => {
       >
         <SheetHeader>
           <SheetTitle className="text-muted-foreground">
-            {dummyPost.title}
+            {selectedPost?.properties.title}
           </SheetTitle>
-          <SheetDescription className="text-sm text-muted-foreground">
-            {dummyPost.location} • Posted by {dummyPost.postedBy} on{' '}
+          {/* <SheetDescription className="text-sm text-muted-foreground">
+            {post.location} • Posted by {dummyPost.postedBy} on{' '}
             {dummyPost.date}
-          </SheetDescription>
+          </SheetDescription> */}
         </SheetHeader>
 
         <div className="mt-4 space-y-4">
-          <p>{dummyPost.description}</p>
+          <p>{selectedPost?.properties.description}</p>
 
           <div className="flex justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>
+            <Button variant="outline" onClick={() => setOpenSheet(false)}>
               Close
             </Button>
           </div>

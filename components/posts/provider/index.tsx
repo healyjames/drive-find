@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, use, useContext, useEffect, useState } from 'react'
 import { IPost } from '@/models/Post'
 import { Feature, FeatureCollection, Point } from 'geojson'
 
@@ -8,8 +8,8 @@ type PostContextType = {
   posts: FeatureCollection<Point, IPost> | null
   loading: boolean
   error: boolean
-  open: boolean
-  setOpen: (o: boolean) => void
+  openSheet: boolean
+  setOpenSheet: (o: boolean) => void
   selectedPost: Feature<Point, IPost> | null
   setSelectedPost: (p: Feature<Point, IPost> | null) => void
 }
@@ -23,7 +23,7 @@ export const PostProvider: React.FC<{ children: React.ReactNode }> = ({
   )
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
-  const [open, setOpen] = useState(false)
+  const [openSheet, setOpenSheet] = useState(false)
   const [selectedPost, setSelectedPost] = useState<Feature<
     Point,
     IPost
@@ -59,8 +59,8 @@ export const PostProvider: React.FC<{ children: React.ReactNode }> = ({
         posts,
         loading,
         error,
-        open,
-        setOpen,
+        openSheet,
+        setOpenSheet,
         selectedPost,
         setSelectedPost,
       }}

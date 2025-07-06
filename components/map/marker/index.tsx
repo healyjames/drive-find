@@ -15,7 +15,7 @@ type TreeMarkerProps = {
 
 export const FeatureMarker = ({ position, feature }: TreeMarkerProps) => {
   const [markerRef] = useAdvancedMarkerRef()
-  const { setSelectedPost, setOpen } = usePostContext()
+  const { setSelectedPost, setOpenSheet } = usePostContext()
 
   return (
     <>
@@ -25,7 +25,7 @@ export const FeatureMarker = ({ position, feature }: TreeMarkerProps) => {
         anchorPoint={AdvancedMarkerAnchorPoint.CENTER}
         onClick={() => {
           setSelectedPost(feature)
-          setOpen(true)
+          setOpenSheet(true)
         }}
       >
         <div className="z-10 relative w-8 h-8 bg-secondary-base rounded-full border-[3px] border-white shadow-md transition-transform duration-200 ease-in-out hover:-translate-y-1 hover:scale-105"></div>
