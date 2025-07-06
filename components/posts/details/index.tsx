@@ -14,10 +14,6 @@ import { usePostContext } from '@/components/posts/provider'
 export const PostDetails = () => {
   const { selectedPost, openSheet, setOpenSheet } = usePostContext()
 
-  useEffect(() => {
-    console.log(openSheet)
-  }, [openSheet])
-
   return (
     <Sheet modal={false} open={openSheet} onOpenChange={setOpenSheet}>
       <SheetContent
