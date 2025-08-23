@@ -1,39 +1,36 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   AdvancedMarker,
   AdvancedMarkerAnchorPoint,
   useAdvancedMarkerRef,
 } from '@vis.gl/react-google-maps'
+import { Feature, Point } from 'geojson'
+import { IPost } from '@/models/Post'
+import { usePostContext } from '@/components/posts/provider'
 
 type TreeMarkerProps = {
   position: google.maps.LatLngLiteral
-  featureId: string
-  onMarkerClick?: (
-    marker: google.maps.marker.AdvancedMarkerElement,
-    featureId: string,
-  ) => void
+  feature: Feature<Point, IPost>
 }
 
-export const FeatureMarker = ({
-  position,
-  featureId,
-  onMarkerClick,
-}: TreeMarkerProps) => {
-  const [markerRef, marker] = useAdvancedMarkerRef()
-  const handleClick = useCallback(
-    () => onMarkerClick && onMarkerClick(marker!, featureId),
-    [onMarkerClick, marker, featureId],
-  )
+export const FeatureMarker = ({ position, feature }: TreeMarkerProps) => {
+  const [markerRef] = useAdvancedMarkerRef()
+  const { setSelectedPost, setOpenSheet } = usePostContext()
 
   return (
-    <AdvancedMarker
-      ref={markerRef}
-      position={position}
-      onClick={handleClick}
-      anchorPoint={AdvancedMarkerAnchorPoint.CENTER}
-    >
+    <>
+      <AdvancedMarker
+        ref={markerRef}
+        position={position}
+        anchorPoint={AdvancedMarkerAnchorPoint.CENTER}
+        onClick={() => {
+          setSelectedPost(feature)
+          setOpenSheet(true)
+        }}
+      >
         <div className="z-10 relative w-8 h-8 bg-secondary-base rounded-full border-[3px] border-white shadow-md transition-transform duration-200 ease-in-out hover:-translate-y-1 hover:scale-105"></div>
-      <div className="h-4 w-full bg-[#000] rounded-[50%] opacity-20 -mt-1"></div>
-    </AdvancedMarker>
+        <div className="h-4 w-full bg-[#000] rounded-[50%] opacity-20 -mt-1"></div>
+      </AdvancedMarker>
+    </>
   )
 }

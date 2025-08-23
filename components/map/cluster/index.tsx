@@ -5,6 +5,7 @@ import { FeaturesClusterMarker } from '../cluster-marker'
 import { FeatureMarker } from '../marker'
 import { useSupercluster } from '@/hooks/use-supercluster'
 import { Feature, FeatureCollection, GeoJsonProperties, Point } from 'geojson'
+import { IPost } from '@/models/Post'
 
 type ClusteredMarkersProps = {
   geojson: FeatureCollection<Point>
@@ -46,18 +47,9 @@ export const ClusteredMarkers = ({
     [map, clusters, getClusterExpansionZoom],
   )
 
-  const handleMarkerClick = useCallback(
-    (marker: google.maps.marker.AdvancedMarkerElement, featureId: string) => {
-      const feature = clusters.find(
-        (feat) => feat.id === featureId,
-      ) as Feature<Point>
-    },
-    [clusters],
-  )
-
   return (
     <>
-      {clusters.map((feature) => {
+      {clusters.map((feature, index) => {
         const [lng, lat] = feature.geometry.coordinates
 
         const clusterProperties = feature.properties as ClusterProperties
@@ -65,7 +57,7 @@ export const ClusteredMarkers = ({
 
         return isCluster ? (
           <FeaturesClusterMarker
-            key={feature.id}
+            key={`cluster-${index}`}
             clusterId={clusterProperties.cluster_id}
             position={{ lat, lng }}
             size={clusterProperties.point_count}
@@ -74,10 +66,9 @@ export const ClusteredMarkers = ({
           />
         ) : (
           <FeatureMarker
-            key={feature.id}
-            featureId={feature.id as string}
+            key={`feature-${index}`}
+            feature={feature as Feature<Point, IPost>}
             position={{ lat, lng }}
-            onMarkerClick={handleMarkerClick}
           />
         )
       })}
